@@ -1,0 +1,108 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta name="generator" content="Hexo 3.9.0"><meta charset="utf-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="author" content="Hash"><meta name="description" content=" 人是万物的尺度 "><link rel="alternative" href="/atom.xml" title="Rainbow" type="application/atom+xml"><link rel="icon" href="/favicon.png"><title>Java08-16知识点 - Rainbow</title><link rel="stylesheet" href="/css/main.css"><link rel="stylesheet" href="/js/fancybox/jquery.fancybox.min.css"><!--[if lt IE 9]><script>(function(a,b){a="abbr article aside audio bdi canvas data datalist details dialog figcaption figure footer header hgroup main mark meter nav output progress section summary template time video".split(" ");for(b=a.length-1;b>=0;b--)document.createElement(a[b])})()</script><![endif]--><script src="/js/jquery-3.1.1.min.js"></script><script src="/js/fancybox/jquery.fancybox.min.js"></script></head><body style="opacity:0"><header class="head"><h1 class="head-title u-fl"><a href="/">Rainbow</a></h1><nav class="head-nav u-fr"><ul class="head-nav__list"><li class="head-nav__item"><a class="head-nav__link" href="/tags">标签</a></li><li class="head-nav__item"><a class="head-nav__link" href="/archives">目录</a></li></ul></nav></header><main class="main"><article class="post"><header class="post__head"><time class="post__time" datetime="2019-08-17T09:23:37.000Z">2019 - 08 - 17 17:23:37</time><h1 class="post__title"><a href="/2019/08/17/Java08-16知识点/">Java08-16知识点</a></h1><div class="post__main echo"><h2 id="双列集合"><a href="#双列集合" class="headerlink" title="双列集合"></a>双列集合</h2><h4 id="Map"><a href="#Map" class="headerlink" title="Map"></a>Map</h4><blockquote>
+<p>元素: 键值对,对键有唯一性,可以通过键获取对应的值</p>
+</blockquote>
+<ul>
+<li>HashMap:底层是哈希表结构</li>
+<li>Hashtable:底层是hash结构</li>
+<li>LinkedHashMap: 底层是哈希表和链表结构</li>
+<li>TreeMap: 底层是树(排序)</li>
+</ul>
+<h2 id="工具类"><a href="#工具类" class="headerlink" title="工具类"></a>工具类</h2><h4 id="Collections：集合工具类"><a href="#Collections：集合工具类" class="headerlink" title="Collections：集合工具类"></a>Collections：集合工具类</h4><ul>
+<li>sort()    //排序</li>
+<li>binarySeach   //二分法查找,使用之前需要先排序</li>
+<li>reverse       //翻转</li>
+<li>shuffle       //混淆,洗牌</li>
+<li>swap()        <code>Collections.swap(num,0,6)</code>; //交换0和6的数据</li>
+<li>ratate        //滚动</li>
+<li>synchronizedList  // 线程安全化<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">List&lt;Integer&gt; numbers = new ArrayList&lt;&gt;();</span><br><span class="line">List&lt;Integer&gt; synchronizedNumbers = (List&lt;Integer&gt;) Collections.synchronizedList(numbers);</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h4 id="Arrays：数组工具类"><a href="#Arrays：数组工具类" class="headerlink" title="Arrays：数组工具类"></a>Arrays：数组工具类</h4><h4 id="功能接口"><a href="#功能接口" class="headerlink" title="功能接口"></a>功能接口</h4><ul>
+<li>Iterator：迭代器  遍历元素</li>
+<li>ListIterator：列表迭代器</li>
+<li>Comparable:比较性</li>
+<li>Comparator:比较器</li>
+</ul>
+<h2 id="泛型"><a href="#泛型" class="headerlink" title="泛型"></a>泛型</h2><blockquote>
+<p>代表类型，在使用泛型的时候，给予一个确定的数据类型</p>
+</blockquote>
+<ul>
+<li>可以将数据类型传给方法,类,接口</li>
+</ul>
+<ul>
+<li>泛型类 (作用于整个类)</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> 类名&lt;泛型&gt;</span>&#123;&#125;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Fx</span>&lt;<span class="title">K</span>&gt;</span>&#123;</span><br><span class="line"><span class="keyword">private</span> K k;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> K <span class="title">getK</span><span class="params">()</span> </span>&#123;</span><br><span class="line"><span class="keyword">return</span> k;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">Fx&lt;Integer&gt; f = <span class="keyword">new</span> Fx&lt;&gt;();</span><br><span class="line">f.setK(<span class="number">13</span>);</span><br><span class="line">f.getK();</span><br><span class="line">Fx&lt;String&gt; x = <span class="keyword">new</span> Fx&lt;&gt;();</span><br><span class="line">x.setK(<span class="string">"string"</span>);</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>在定义类的时候无法确定具体的数据类型，</li>
+<li>创建该类的对象的时候确定数据类型</li>
+</ul>
+<ul>
+<li>泛型方法(泛型作用于就是本方法)</li>
+<li>public &lt;泛型&gt; void show(){}</li>
+<li>在定义方法的时候无法确定数据类型，调用方法的时候给予一个确定的数据类型</li>
+</ul>
+<ul>
+<li>泛型接口</li>
+<li>interface MyFace<q>{}</q></li>
+<li>在实现类实现接口的时候确定数据类型</li>
+<li>实现无法确定数据类型的时候，继承了泛型，实现类就是泛型类，</li>
+<li>创建该类对象的额时候确定数据类型<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">interface Itf&lt;F&gt;&#123;</span><br><span class="line">void show(F f);    </span><br><span class="line">&#125;</span><br><span class="line">class It1&lt;F&gt; implements Itf&#123;</span><br><span class="line">public void show(Object f) &#123;</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h2 id="Map-1"><a href="#Map-1" class="headerlink" title="Map"></a>Map</h2><h4 id="遍历方式"><a href="#遍历方式" class="headerlink" title="遍历方式"></a>遍历方式</h4><ul>
+<li>通过Keyset和get</li>
+<li>通过KeySet获取所有的键的集合 <code>Set&lt;K&gt; keySet()</code></li>
+<li>返回此映射中包含的键的 Set 视图。</li>
+<li>遍历set集合,通过get获取键</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">HashMap&lt;Integer, Dog&gt; ham = new HashMap&lt;&gt;();</span><br><span class="line">Dog dog1 = new Dog(13, &quot;柯基&quot;);</span><br><span class="line">Dog dog2 = new Dog(12, &quot;金毛&quot;);</span><br><span class="line">ham.put(13, dog1);</span><br><span class="line">ham.put(14, dog2);</span><br><span class="line">ham.put(16, new Dog(13, &quot;柯基&quot;));</span><br><span class="line"></span><br><span class="line">/*</span><br><span class="line">* Set&lt;Integer&gt; dkeys = ham.keySet();</span><br><span class="line">* for (Integer key : dkeys) &#123;</span><br><span class="line">* System.out.println(ham.get(key)); &#125;</span><br><span class="line">*/</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>通过Set&lt;Map.Entry&lt;K,V&gt;&gt; entrySet()</li>
+<li>返回此映射中包含的映射关系的 Set 视图</li>
+<li>获取Set集合(集合中的元素就是entry实体对象(键值对))</li>
+<li>getKey()  getValue()</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Set&lt;Map.Entry&lt;Integer, Dog&gt;&gt; id = ham.entrySet();</span><br><span class="line">for (Map.Entry&lt;Integer, Dog&gt; entry : id) &#123;</span><br><span class="line">System.out.println(entry.getKey() + &quot; &quot; + entry.getValue());</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="HashMap"><a href="#HashMap" class="headerlink" title="HashMap"></a>HashMap</h4><ul>
+<li><p>键值对唯一性原理</p>
+</li>
+<li><p>HashMap实际上是一个“链表散列”的数据结构，即数组和链表的结合体</p>
+</li>
+<li><p>当调用put(key,value)时，首先获取key的hashcode，int hash = key.hashCode(); </p>
+</li>
+<li><p>再把hash通过一下运算得到一个int h. </p>
+</li>
+<li><p>得到h之后，把h与HashMap的承载量（HashMap的默认承载量length是16，可以自动变长。在构造HashMap的时候也可以指定一个长 度。这个承载量就是上图所描述的数组的长度。）进行逻辑与运算，即 h &amp; (length-1)，这样得到的结果就是一个比length小的正数，我们把这个值叫做index</p>
+</li>
+<li><p>HashMap的键可以为null，它的值是放在数组的第一个位置</p>
+</li>
+<li><p>我们用table[index]表示已经找到的元素需要存储的位置。先判断该位置上有没有元素（这个元素是HashMap内部定义的一个类Entity， 基本结构它包含三个类，key，value和指向下一个Entity的next）,没有的话就创建一个Entity&lt;K,V&gt;对象，在 table[index]位置上插入，这样插入结束；如果有的话，通过链表的遍历方式去逐个遍历，看看有没有已经存在的key，有的话用新的value替 换老的value；如果没有，则在table[index]插入该Entity，把原来在table[index]位置上的Entity赋值给新的 Entity的next，这样插入结束</p>
+</li>
+<li><p>注意</p>
+</li>
+<li><p>添加对象到值里面,对象类需要重写toString()方法/否则返回地址值</p>
+</li>
+<li><p>把对象值设为key,如果不在对象类中重写hashCode和equlas方法,可以重复添加,(比较的地址值)</p>
+</li>
+<li><p>判断null值的方式,不能使用get方法判断HashMap中是否存在某个键</p>
+</li>
+<li><p>使用contiansKey();</p>
+</li>
+<li><p>HashMap中，null可以作为键，这样的键只有一个；可以有一个或多个键所对应的值为null</p>
+</li>
+<li><p>重写equlas方法和HashCode方法</p>
+</li>
+<li><p>Code</p>
+</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">HashMap&lt;Dog, Integer&gt; dm = new HashMap&lt;&gt;();</span><br><span class="line">Dog d1 = new Dog(13, &quot;柯基&quot;);;</span><br><span class="line">dm.put(d1, 1);</span><br><span class="line">dm.put(new Dog(13,&quot;柯基&quot;),4);</span><br><span class="line">Set&lt;Dog&gt; dKeys = dm.keySet();</span><br><span class="line">for(Dog ds:dKeys) &#123;</span><br><span class="line">System.out.println(dm.get(ds)+&quot; &quot;+ds.toString());</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="补充"><a href="#补充" class="headerlink" title="补充"></a>补充</h2><h4 id="可变参数"><a href="#可变参数" class="headerlink" title="可变参数"></a>可变参数</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">public static void sum(int...a)&#123;</span><br><span class="line">int sum = 0;</span><br><span class="line">for (int i  : a) &#123;</span><br><span class="line">sum+=i;</span><br><span class="line">&#125;</span><br><span class="line">System.out.println(sum);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">sum(13,123,123);</span><br><span class="line">sum(123,123);   //可变参数</span><br></pre></td></tr></table></figure>
+
+</div></header><footer class="post__foot u-cf"><ul class="post__tag u-fl"><li class="post__tag__item"><a class="post__tag__link" href="/tags/Java/">Java</a></li><li class="post__tag__item"><a class="post__tag__link" href="/tags/笔记/">笔记</a></li></ul></footer></article><section class="reward"><a class="btn-reward" href="#">打赏</a><div class="reward-wrapper clearfix"><img src="/img/wechat.png" title="微信"></div></section></main><footer class="foot"><div class="foot-copy">&copy; 2019 Hash</div></footer><script src="/js/scroller.js"></script><script src="/js/main.js"></script></body></html>
