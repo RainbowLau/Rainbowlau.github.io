@@ -1,0 +1,413 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta name="generator" content="Hexo 3.9.0"><meta charset="utf-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="author" content="Hash"><meta name="description" content=" 人是万物的尺度 "><link rel="alternative" href="/atom.xml" title="Rainbow" type="application/atom+xml"><link rel="icon" href="/favicon.png"><title>Java08-15知识点 - Rainbow</title><link rel="stylesheet" href="/css/main.css"><link rel="stylesheet" href="/js/fancybox/jquery.fancybox.min.css"><!--[if lt IE 9]><script>(function(a,b){a="abbr article aside audio bdi canvas data datalist details dialog figcaption figure footer header hgroup main mark meter nav output progress section summary template time video".split(" ");for(b=a.length-1;b>=0;b--)document.createElement(a[b])})()</script><![endif]--><script src="/js/jquery-3.1.1.min.js"></script><script src="/js/fancybox/jquery.fancybox.min.js"></script></head><body style="opacity:0"><header class="head"><h1 class="head-title u-fl"><a href="/">Rainbow</a></h1><nav class="head-nav u-fr"><ul class="head-nav__list"><li class="head-nav__item"><a class="head-nav__link" href="/tags">标签</a></li><li class="head-nav__item"><a class="head-nav__link" href="/archives">目录</a></li></ul></nav></header><main class="main"><article class="post"><header class="post__head"><time class="post__time" datetime="2019-08-17T09:02:59.000Z">2019 - 08 - 17 17:02:59</time><h1 class="post__title"><a href="/2019/08/17/Java08-15知识点/">Java08-15知识点</a></h1><div class="post__main echo"><h1 id="集合框架"><a href="#集合框架" class="headerlink" title="集合框架"></a>集合框架</h1><blockquote>
+<p>容器,一种是集合（Collection），存储一个元素集合，另一种是图（Map），存储键/值对映射</p>
+</blockquote>
+<ul>
+<li>所有的集合框架都包含以下内容</li>
+<li>接口: 是代表集合的抽象数据类型。例如 Collection、List、Set、Map 等。之所以定义多个接口，是为了以不同的方式操作集合对象</li>
+<li>实现类: 是集合接口的具体实现。从本质上讲，它们是可重复使用的数据结构，例如：ArrayList、LinkedList、HashSet、HashMap。</li>
+<li>算法: 是实现集合接口的对象里的方法执行的一些有用的计算，例如：搜索和排序。这些算法被称为<code>多态</code>，那是因为相同的方法可以在相似的接口上有着不同的实现。</li>
+<li>除了集合，该框架也定义了几个 Map 接口和类。Map 里存储的是键/值对。尽管 Map 不是集合，但是它们完全整合在集合中</li>
+</ul>
+<h2 id="Collection"><a href="#Collection" class="headerlink" title="Collection"></a>Collection</h2><blockquote>
+<p>Collection 接口又有 3 种子类型，List、Set 和 Queue，再下面是一些抽象类，最后是具体实现类，常用的有 ArrayList、LinkedList、HashSet、LinkedHashSet、HashMap、LinkedHashMap </p>
+</blockquote>
+<h3 id="数组区别"><a href="#数组区别" class="headerlink" title="数组区别"></a>数组区别</h3><h3 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h3><blockquote>
+<p>最基本的集合接口,一个Collection代表一组Object,即 Collection 的元素, Java不提供直接继承自Collection的类，只提供继承于的子接口(如List和set)。</p>
+</blockquote>
+<h3 id="关系图"><a href="#关系图" class="headerlink" title="关系图"></a>关系图</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">graph TD</span><br><span class="line">A(Collection/接口) --&gt;|继承|B1(list)</span><br><span class="line">A --&gt;|继承|B2(set)</span><br><span class="line">B1 --&gt;|实现|C1(Arratlist类)</span><br><span class="line">B1 --&gt;|实现|C2(LinkedLit类)</span><br><span class="line">B2 --&gt;|实现|C3(HashSet类)</span><br><span class="line">B2 --&gt;|实现|C4(TreeSet类)</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>区别</li>
+<li>List 有序,可重复,有索引0</li>
+<li>底层是链表和数组</li>
+<li>List和数组类似，可以动态增长，根据实际存储的数据的长度自动增长List的长度。查找元素效率高，插入删除效率低,因为会引起其他元素位置改变 &lt;实现类有ArrayList,LinkedList,Vector&gt; 。</li>
+<li>set 无序,不可重复,和Collection 完全一样</li>
+<li>Set检索效率低下，删除和插入效率高，插入和删除不会引起元素位置改变 &lt;实现类有HashSet,TreeSet&gt;</li>
+<li>底层是Hash表和数</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">graph TD</span><br><span class="line">A(Map) --&gt;|实现|B(HashMap)</span><br><span class="line">A --&gt;|实现|B1(TreeMap)</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>区别</li>
+<li>接口存储一组键值对象，提供key（键）到value（值）的映射</li>
+</ul>
+<h3 id="分类"><a href="#分类" class="headerlink" title="分类"></a>分类</h3><h4 id="单列"><a href="#单列" class="headerlink" title="单列"></a>单列</h4><ul>
+<li>list</li>
+<li>Linkedlist</li>
+<li>ArrayList</li>
+<li>Set</li>
+<li>HashSet</li>
+<li>TreeSet<h3 id="双列"><a href="#双列" class="headerlink" title="双列"></a>双列</h3></li>
+</ul>
+<h3 id="功能接口"><a href="#功能接口" class="headerlink" title="功能接口"></a>功能接口</h3><h3 id="工具类"><a href="#工具类" class="headerlink" title="工具类"></a>工具类</h3><h3 id="Collection-1"><a href="#Collection-1" class="headerlink" title="Collection"></a>Collection</h3><ol>
+<li>常用方法</li>
+<li>遍历(三种)</li>
+<li>注意</li>
+</ol>
+<ul>
+<li>常用方法<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//创建</span></span><br><span class="line">Collection c = <span class="keyword">new</span> ArrayList();</span><br><span class="line">Collection c1 = <span class="keyword">new</span> ArrayList();</span><br><span class="line"></span><br><span class="line"><span class="comment">//添加</span></span><br><span class="line"><span class="comment">//boolean add(E e)  //在列表末尾</span></span><br><span class="line">c.add(<span class="string">"泰国"</span>);</span><br><span class="line">c.add(<span class="string">"新加坡"</span>);</span><br><span class="line">c.add(<span class="string">"印度尼西亚"</span>);</span><br><span class="line"><span class="comment">//boolean addAll(Collection&lt;? extends E&gt; c)  </span></span><br><span class="line">c1.addAll(c2);</span><br><span class="line"></span><br><span class="line"><span class="comment">// int size();      int型,个数1开始</span></span><br><span class="line">System.out.println(c.size());</span><br><span class="line"></span><br><span class="line"><span class="comment">//boolean addAll(Collection&lt;? extends E&gt; c)将指定 collection 中的所有元素都添加到此 collection 中</span></span><br><span class="line">c1.addAll(c2);</span><br><span class="line"><span class="comment">//boolean removeAll(Collection&lt;?&gt; c)移除此 collection 中那些也包含在指定 collection 中的所有元素</span></span><br><span class="line">c1.removeAll(c2);</span><br><span class="line"></span><br><span class="line"><span class="comment">//boolean containsAll(Collection&lt;?&gt; c)如果此 collection 包含指定 collection 中的所有元素，则返回 true。</span></span><br><span class="line">System.out.println(c1.containsAll(c2));</span><br><span class="line">System.out.println(c1.contains(<span class="string">"九头蛇"</span>));</span><br><span class="line"></span><br><span class="line"><span class="comment">//boolean retainAll(Collection&lt;?&gt; c)仅保留此 collection 中那些也包含在指定 collection 的元素</span></span><br><span class="line">c1.retainAll(c2);</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<ol start="2">
+<li>遍历</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.*;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Test</span></span>&#123;</span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">List&lt;String&gt; list=<span class="keyword">new</span> ArrayList&lt;String&gt;();</span><br><span class="line">list.add(<span class="string">"Hello"</span>);</span><br><span class="line">list.add(<span class="string">"World"</span>);</span><br><span class="line">list.add(<span class="string">"HAHAHAHA"</span>);</span><br><span class="line"><span class="comment">//第一种遍历方法使用 For-Each 遍历 List</span></span><br><span class="line"><span class="keyword">for</span> (String str : list) &#123;            <span class="comment">//也可以改写 for(int i=0;i&lt;list.size();i++) 这种形式</span></span><br><span class="line">System.out.println(str);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//第二种遍历，把链表变为数组相关的内容进行遍历</span></span><br><span class="line">String[] strArray=<span class="keyword">new</span> String[list.size()];</span><br><span class="line">list.toArray(strArray);</span><br><span class="line"><span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;strArray.length;i++) <span class="comment">//这里也可以改写为  for(String str:strArray) 这种形式</span></span><br><span class="line">&#123;</span><br><span class="line">System.out.println(strArray[i]);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//第三种遍历 使用迭代器进行相关遍历</span></span><br><span class="line"></span><br><span class="line">Iterator&lt;String&gt; ite=list.iterator();</span><br><span class="line"><span class="keyword">while</span>(ite.hasNext())<span class="comment">//判断下一个元素之后有值</span></span><br><span class="line">&#123;</span><br><span class="line">System.out.println(ite.next());</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ol start="3">
+<li>注意</li>
+</ol>
+<ul>
+<li>添加对象时,对象类里重写equals方法,</li>
+<li>ArrayList里用equals方法判断元素是否相同</li>
+</ul>
+<h3 id="list"><a href="#list" class="headerlink" title="list"></a>list</h3><blockquote>
+<p>概念</p>
+</blockquote>
+<ol>
+<li>ArrayList</li>
+<li>LinkedList</li>
+<li>Vector</li>
+</ol>
+<h4 id="ArrayList"><a href="#ArrayList" class="headerlink" title="ArrayList"></a>ArrayList</h4><ol>
+<li>常用方法</li>
+<li>列表迭代器</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">Iterator it =  c.iterator();</span><br><span class="line">/*</span><br><span class="line">//如果仍然有元素可以迭代,返回true</span><br><span class="line">boolean hasNext()</span><br><span class="line">*/</span><br><span class="line"></span><br><span class="line">while(it.hasNext())&#123;</span><br><span class="line">Person o = (Person)it.next();</span><br><span class="line">System.out.println(o);</span><br><span class="line">&#125;</span><br><span class="line">// Object [] toArray() 返回包含此collection中所有元素的数字</span><br><span class="line"></span><br><span class="line">Object []persons = c.toArray();</span><br><span class="line"></span><br><span class="line">for(int i=0;i&lt;persons.length;i++)&#123;</span><br><span class="line">System.out.println();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="LinkedList"><a href="#LinkedList" class="headerlink" title="LinkedList"></a>LinkedList</h4><blockquote>
+<p>大致相同,底层是链表结构</p>
+</blockquote>
+<ul>
+<li>在列表开头及结尾 get、remove 和 insert 元素提供了统一的命名方法。这些操作允许将链接列表用作堆栈、队列或双端队列</li>
+<li>特殊方法</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">public void push(E e)</span><br><span class="line">将元素推送到由此列表表示的堆栈上。 </span><br><span class="line">换句话说，在该列表的前面插入元素。 </span><br><span class="line">此方法相当于addFirst(E) 。 </span><br><span class="line"></span><br><span class="line">public E pop()从此列表表示的堆栈中弹出一个元素。 </span><br><span class="line">换句话说，删除并返回此列表的第一个元素。 </span><br><span class="line">此方法相当于removeFirst() 。</span><br></pre></td></tr></table></figure>
+
+<h3 id="Set"><a href="#Set" class="headerlink" title="Set"></a>Set</h3><blockquote>
+<p>元素不可重复,set集合的遍历只能使用迭代器</p>
+</blockquote>
+<ol>
+<li>HashSet</li>
+</ol>
+<ul>
+<li>允许null元素,线程不安全</li>
+</ul>
+<ol start="2">
+<li>TreeSet</li>
+</ol>
+<ul>
+<li>元素自然排序</li>
+</ul>
+<ol start="3">
+<li>LinkedHashSet</li>
+</ol>
+<ul>
+<li>底层时哈希表和链表结构,元素有序,线程不安全</li>
+<li>元素唯一原理：hashSet一致。  线程不安全</li>
+</ul>
+<h4 id="HashSet"><a href="#HashSet" class="headerlink" title="HashSet"></a>HashSet</h4><ul>
+<li>判断元素相同的原理</li>
+<li>重写HashCode方法和equals方法</li>
+<li>判断元素的哈希值是否相同</li>
+<li>如果hash值相同，进一步调用equals方法比较成员变量值    //因为单哈希值不能判断元素是否相同</li>
+<li>如果equals方法返回true，元素相同，不添加,返回false，元素不同，直接添加</li>
+<li>Code</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">HashSet hs = new HashSet();</span><br><span class="line">hs.add(&quot;王二&quot;);</span><br><span class="line">hs.add(&quot;张三&quot;);</span><br><span class="line">hs.add(&quot;王德发&quot;);</span><br><span class="line"></span><br><span class="line">System.out.println(hs); //[张三, 王德发, 王二]</span><br><span class="line">//只能使用迭代器,没有length,size()</span><br><span class="line">Iterator it = hs.iterator();</span><br><span class="line">while (it.hasNext())&#123;</span><br><span class="line">System.out.print(it.next()+&quot; &quot;);    //张三 王德发 王二 </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="TreeSet"><a href="#TreeSet" class="headerlink" title="TreeSet"></a>TreeSet</h4><blockquote>
+<p>元素的自然排序</p>
+</blockquote>
+<ul>
+<li>元素所在类实现Comparable接口</li>
+<li>强行对实现它的每个类的对象进行整体排序。这种排序被称为类的自然排序</li>
+<li>必须实现Comparable接口才能添加元素</li>
+<li>保证元素唯一的原理</li>
+<li>根据comparaTo()方法的返回值</li>
+<li>如果是0,不添加,不是0,直接添加</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">// 对象类需要实现Comparable,重写方法</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">TreeSet set = new TreeSet();</span><br><span class="line">Dog dog1 = new Dog(13,&quot;王&quot;);</span><br><span class="line">Dog dog2 = new Dog(14,&quot;张&quot;);</span><br><span class="line">Dog dog3 = new Dog(15,&quot;李&quot;);</span><br><span class="line">set.add(dog1);</span><br><span class="line">set.add(dog2);</span><br><span class="line">set.add(dog3);</span><br><span class="line"></span><br><span class="line">System.out.println(set.add(new Dog(13,&quot;王&quot;)));</span><br><span class="line">System.out.println(set);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">public class Dog implements Comparable&#123;</span><br><span class="line">...</span><br><span class="line">@Override   //重写比较方法</span><br><span class="line">public int compareTo(Object o) &#123;</span><br><span class="line">Dog dog = (Dog)o;       //强转</span><br><span class="line">int result;</span><br><span class="line">result = this.age - dog.age;    //先比较年龄,年龄相同等于0</span><br><span class="line">if (result == 0)&#123;               </span><br><span class="line">result = this.name.compareTo(dog.name); //年龄相同比较姓名</span><br><span class="line">&#125;</span><br><span class="line">return result;</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="TreeSet第二种比较方式"><a href="#TreeSet第二种比较方式" class="headerlink" title="TreeSet第二种比较方式"></a>TreeSet第二种比较方式</h4><blockquote>
+<p>给集合传入比较器对象</p>
+</blockquote>
+<ul>
+<li><p><code>public TreeSet(Comparable comparator)</code>,构造一个新的空TreeSet,根据指定比较器进行比较</p>
+</li>
+<li><p>匿名内部类</p>
+</li>
+<li><p>其实就是一个实现了接口或者继承子类的子类对象</p>
+</li>
+<li><p>格式</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">new 接口名或者类名()&#123;</span><br><span class="line">重写接口或者类中的方法</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>Code</p>
+</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">TreeSet ts = new TreeSet(new Comparator() &#123;</span><br><span class="line">@Override</span><br><span class="line">public int compare(Object o1, Object o2) &#123;//格式</span><br><span class="line">Dog dog1 = (Dog)o1;</span><br><span class="line">Dog dog2 = (Dog)o2;</span><br><span class="line">int result;</span><br><span class="line">result = dog1.getAge()-dog2.getAge();</span><br><span class="line">if (result==0)&#123;</span><br><span class="line">result = dog1.getName().compareTo(dog2.getName());</span><br><span class="line">&#125;</span><br><span class="line">return result;</span><br><span class="line">&#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<h2 id="面试题"><a href="#面试题" class="headerlink" title="面试题"></a>面试题</h2><ol>
+<li><p>HashMap排序<br>HashMap&lt;Integer,User&gt;<br>要求根据Integer进行进行对排序</p>
+</li>
+<li><p>ArrayList，HashSet，HashMap线程安全吗</p>
+</li>
+</ol>
+<ul>
+<li>线程不安全</li>
+<li>可以被同步<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Set s=Collections.synchronizedSet(new Hashset&lt;...&gt;());</span><br><span class="line">Map m=Collections.synchronizedMap(new HashMap&lt;...&gt;());</span><br><span class="line">List l=Collections.synchronizedList(new ArrayList&lt;...&gt;());</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<ol start="3">
+<li>ArrayList内部用什么实现的？</li>
+</ol>
+<ul>
+<li>数组,可以动态增长,线程不安全,只能用于单线程</li>
+<li>多线程下要使用ArrayList结构,使用concurrent并发包下的CopyOnWriteArrayList</li>
+<li>实现List接口,底层使用数组保存数据.其操作就是对数组的操作</li>
+</ul>
+<ol start="4">
+<li>List三个子类特点</li>
+</ol>
+<ul>
+<li><p>ArrayList:</p>
+</li>
+<li><p>底层数据结构是数组,查询快,增删慢</p>
+</li>
+<li><p>线程不安全,效率高</p>
+</li>
+<li><p>LinkedList</p>
+</li>
+<li><p>底层数据结构是链表,查询慢,增删快</p>
+</li>
+<li><p>线程不安全,效率高</p>
+</li>
+<li><p>Vertor</p>
+</li>
+<li><p>底层数据结构是数组,查询快,增删慢</p>
+</li>
+<li><p>线程安全,效率低</p>
+</li>
+<li><p>Vertor和ArrayList区别</p>
+</li>
+<li><p>共同点: 都是数组实现的</p>
+</li>
+<li><p>Vector是线程安全的,效率低</p>
+</li>
+<li><p>ArrayList是线程不安全的,效率高</p>
+</li>
+<li><p>ArrayList和LinkedList的区别</p>
+</li>
+<li><p>ArrayList底层是数组结果,查询和修改快</p>
+</li>
+<li><p>LinkedList底层是链表结构的,增和删比较快,查询和修改比较慢</p>
+</li>
+<li><p>共同点:都是线程不安全的</p>
+</li>
+<li><p>使用差别</p>
+</li>
+<li><p>查询多用ArrayList</p>
+</li>
+<li><p>增删多用LinkedList</p>
+</li>
+<li><p>都多用ArrayList</p>
+</li>
+</ul>
+<ol start="5">
+<li>List和Set,Map的区别</li>
+</ol>
+<ul>
+<li><p>List和Set继承自Collection接口,Map为独立接口</p>
+</li>
+<li><p>Set下有HashSet,LinkedHashSet,TreeSet</p>
+</li>
+<li><p>List下有ArrayList，Vector，LinkedList</p>
+</li>
+<li><p>Map下有Hashtable，LinkedHashMap，HashMap，TreeMap</p>
+</li>
+<li><p>Collection接口下还有个Queue接口，有PriorityQueue类</p>
+</li>
+<li><p><strong>COllecttion</strong></p>
+<blockquote>
+<p>List有序,可重复</p>
+</blockquote>
+</li>
+<li><p>ArrayList</p>
+</li>
+<li><p>优点:底层数据结构是数组,查询快,增删慢(删除增加需要动很多数组)</p>
+</li>
+<li><p>缺点:线程不安全,效率高</p>
+</li>
+<li><p>Vector</p>
+</li>
+<li><p>优点: 底层数据结构是数组，查询快，增删慢。</p>
+</li>
+<li><p>缺点: 线程安全，效率低</p>
+</li>
+<li><p>LinkenList</p>
+</li>
+<li><p>优点:底层数据结构是链表，查询慢，增删快</p>
+</li>
+<li><p>缺点: 线程不安全，效率高</p>
+</li>
+<li><p><strong>Set</strong></p>
+</li>
+<li><p>Set 无序,唯一</p>
+</li>
+<li><p>HashSet</p>
+</li>
+<li><p>底层数据结构是哈希表。(无序,唯一)</p>
+</li>
+<li><p>如何来保证元素唯一性?</p>
+</li>
+<li><p>1.依赖两个方法：hashCode()和equals()</p>
+</li>
+<li><p>LinkedHashSet</p>
+</li>
+<li><p>底层数据结构是链表和哈希表。(FIFO插入有序,唯一)</p>
+</li>
+<li><p>由链表保证元素有序</p>
+</li>
+<li><p>由哈希表保证元素唯一</p>
+</li>
+<li><p>TreeSet</p>
+</li>
+<li><p>底层数据结构是红黑树。(唯一，有序)</p>
+</li>
+<li><ol>
+<li>如何保证元素排序的呢?</li>
+</ol>
+</li>
+<li><p>自然排序</p>
+</li>
+<li><p>比较器排序</p>
+</li>
+<li><p>2.如何保证元素唯一性的呢?</p>
+</li>
+<li><p>根据比较的返回值是否是0来决定</p>
+</li>
+</ul>
+<ol start="6">
+<li>HashMap和Hashtable的区别</li>
+</ol>
+<ul>
+<li><p>继承的父类不同</p>
+</li>
+<li><p>Hashtable继承自Dictionary类，而HashMap继承自AbstractMap类。但二者都实现了Map接口。</p>
+</li>
+<li><p>线程安全性不同</p>
+</li>
+<li><p>HashMap不是同步的,如果多个线程同时访问一个哈希映射，而其中至少一个线程从结构上修改了该映射，则它必须保持外部同步</p>
+</li>
+<li><p>Hashtable 中的方法是Synchronize的，而HashMap中的方法在缺省情况下是非Synchronize的。</p>
+</li>
+<li><p>是否提供contains方法</p>
+</li>
+<li><p>HashMap把Hashtable的contains方法去掉了，改成containsValue和containsKey,因为contains方法容易让人引起误解。</p>
+</li>
+<li><p>Hashtable则保留了contains，containsValue和containsKey三个方法</p>
+</li>
+<li><p>其中contains和containsValue功能相同。</p>
+</li>
+<li><p>key和value是否允许null值</p>
+</li>
+<li><p>其中key和value都是对象，并且不能包含重复key，但可以包含重复的value。</p>
+</li>
+<li><p>Hashtable中，key和value都不允许出现null值。但是如果在Hashtable中有类似put(null,null)的操作，编译同样可以通过，因为key和value都是Object类型，但运行时会抛出NullPointerException异常，这是JDK的规范规定的</p>
+</li>
+<li><p>HashMap中，null可以作为键，这样的键只有一个；可以有一个或多个键所对应的值为null</p>
+</li>
+<li><p>当get()方法返回null值时，可能是 HashMap中没有该键，也可能使该键所对应的值为null</p>
+</li>
+<li><p>在HashMap中不能由get()方法来判断HashMap中是否存在某个键， 而应该用containsKey()方法来判断</p>
+</li>
+<li><p>遍历方式的内部实现上不同</p>
+</li>
+<li><p>Hashtable、HashMap都使用了 Iterator。而由于历史原因，Hashtable还使用了Enumeration的方式</p>
+</li>
+<li><p>hash值不同</p>
+</li>
+<li><p>哈希值的使用不同，HashTable直接使用对象的hashCode。而HashMap重新计算hash值。</p>
+</li>
+<li><p>内部实现使用的数组初始化和扩容方式不同</p>
+</li>
+<li><p>HashTable在不指定容量的情况下的默认容量为11，而HashMap为16</p>
+</li>
+<li><p>Hashtable不要求底层数组的容量一定要为2的整数次幂，而HashMap则要求一定为2的整数次幂</p>
+</li>
+<li><p>Hashtable扩容时，将容量变为原来的2倍加1，而HashMap扩容时，将容量变为原来的2倍</p>
+</li>
+</ul>
+<ol start="7">
+<li>数组和链表分别适合什么场景？为什么</li>
+</ol>
+<ul>
+<li><p>数组:想要快速访问数据，不经常有插入和删除元素的时候，选择数组</p>
+</li>
+<li><p>链表需要经常的插入和删除元素，而对访问元素时的效率没有很高要求的话，选择链表</p>
+</li>
+<li><p>原因</p>
+</li>
+<li><p>Java知识点  760行</p>
+</li>
+</ul>
+<ol start="8">
+<li>ArrayList和LinkedList的区别</li>
+</ol>
+<ul>
+<li>从名字分析，它们一个是Array(动态数组)的数据结构，一个是Link(链表)的数据结构，此外，它们两个都是对List接口的实现</li>
+<li>前者是数组队列，相当于动态数组；后者为双向链表结构，也可当作堆栈、队列、双端队列</li>
+<li>当随机访问List时（get和set操作），ArrayList比LinkedList的效率更高，因为LinkedList是线性的数据存储方式，所以需要移动指针从前往后依次查找</li>
+<li>当对数据进行增加和删除的操作时(add和remove操作)，LinkedList比ArrayList的效率更高，因为ArrayList是数组，所以在其中进行增删操作时，会对操作点之后所有数据的下标索引造成影响，需要进行数据的移动。</li>
+<li>从利用效率来看，ArrayList自由性较低，因为它需要手动的设置<strong>固定大小</strong>的容量，但是它的使用比较方便，只需要创建，然后添加数据，通过调用下标进行使用；而LinkedList自由性较高，能够<strong>动态</strong>的随数据量的变化而变化，但是它不便于使用。</li>
+<li>ArrayList主要控件开销在于需要在lList列表预留一定空间；而LinkList主要控件开销在于需要存储结点信息以及结点指针信息</li>
+</ul>
+<ol start="9">
+<li>简述Collection和Map集合框架</li>
+</ol>
+<ul>
+<li><p>Collection是最基本的集合接口，一个Collection代表一组Object，即Collection的元素（Elements）</p>
+</li>
+<li><p>所有实现Collection接口的类都必须提供两个标准的构造函数：无参数的构造函数用于创建一个空的Collection，有一个Collection参数的构造函数用于创建一个新的Collection，这个新的Collection与传入的Collection有相同的元素。后一个构造函数允许用户复制一个Collection</p>
+</li>
+<li><p>为什么继承Iterable接口而不继承Iterator?</p>
+</li>
+<li><p>因为Iterator接口的核心方法next()或者hasNext()是依赖于迭代器的当前迭代位置的</p>
+</li>
+<li><p>不同的Collection接口的子接口的实现类返回的Iterator具体类型可能不同，Array可能返回ArrayIterator，Set可能返回 SetIterator，Tree可能返回TreeIterator，但是它们都实现了Iterator接口</p>
+</li>
+<li><p>Map与List、Set接口不同，它是由一系列键值对组成的集合，提供了key到Value的映射</p>
+</li>
+<li><p>同时它也没有继承Collection。在Map中它保证了key与value之间的一一对应关系</p>
+</li>
+<li><p>也就是说一个key对应一个value，所以它不能存在相同的key值，当然value值可以相同</p>
+</li>
+<li><p>实现map的有：HashMap、TreeMap、Hashtable、Properties、EnumMap</p>
+</li>
+</ul>
+<ol start="10">
+<li>Map 的 key、value 是否允许为null</li>
+</ol>
+<ul>
+<li>HashTbale,Key ,Value 不能为null,父类Dictionary,线程不安全</li>
+<li>TreeMap Key不可以 ,Value 可以,父类AbstractMap,线程不安全</li>
+<li>HashMap key和value都可以为null,父类AbstractMap,线程不安全,key只能一个为null</li>
+</ul>
+<ol start="11">
+<li>Map和List的遍历方式</li>
+</ol>
+<ul>
+<li>遍历Map一般有四种方法，如下：</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">Map&lt;String,String&gt; map = new HashMap&lt;&gt;();</span><br><span class="line">map.put(&quot;14&quot;,&quot;十四&quot;);</span><br><span class="line">map.put(&quot;15&quot;,&quot;十五&quot;);</span><br><span class="line">map.put(&quot;16&quot;,&quot;十六&quot;);</span><br><span class="line"></span><br><span class="line">//        第一种,普遍使用,二次取值</span><br><span class="line">for (String s : map.keySet()) &#123;</span><br><span class="line">System.out.println(s+map.get(s));</span><br><span class="line">&#125;</span><br><span class="line">//        第二种</span><br><span class="line">Iterator&lt;Map.Entry&lt;String,String&gt;&gt;it = map.entrySet().iterator();</span><br><span class="line">while(it.hasNext())&#123;</span><br><span class="line">Map.Entry&lt;String,String&gt; entry = it.next();</span><br><span class="line">System.out.println(entry.getKey()+entry.getValue());</span><br><span class="line">&#125;</span><br><span class="line">//         第三种,尤其是容量大的时候</span><br><span class="line">Set&lt;Map.Entry&lt;String,String&gt;&gt; entry = map.entrySet();</span><br><span class="line">for (Map.Entry&lt;String, String&gt; entrys : entry) &#123;</span><br><span class="line">System.out.println(entrys);</span><br><span class="line">&#125;</span><br><span class="line">//            第四种,只能遍历值value</span><br><span class="line">for(String v : map.values()) &#123;</span><br><span class="line">System.out.println(&quot;value&quot;+v);</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>List一般有三种方法<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">List&lt;String&gt; list = new ArrayList&lt;String&gt;();</span><br><span class="line">list.add(&quot;aaa&quot;);</span><br><span class="line">list.add(&quot;bbb&quot;);</span><br><span class="line">list.add(&quot;ccc&quot;);</span><br><span class="line">//方法一：</span><br><span class="line">//增强for循环遍历</span><br><span class="line">for(String attribute : list) &#123;</span><br><span class="line">System.out.println(attribute);</span><br><span class="line">&#125;</span><br><span class="line">//方法二：</span><br><span class="line">//对于ArrayList来说速度比较快, 用for循环, 以size为条件遍历:</span><br><span class="line">for(int i = 0 ; i &lt; list.size() ; i++) &#123;</span><br><span class="line">system.out.println(list.get(i));</span><br><span class="line">&#125;</span><br><span class="line">//方法三：</span><br><span class="line">//集合类的通用遍历方式, 从很早的版本就有, 用迭代器迭代</span><br><span class="line">Iterator it = list.iterator();</span><br><span class="line">while(it.hasNext()) &#123;</span><br><span class="line">System.ou.println(it.next);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<ol start="12">
+<li>Hashmap的底层结构</li>
+</ol>
+<ul>
+<li>哈希表</li>
+</ul>
+</div></header><footer class="post__foot u-cf"><ul class="post__tag u-fl"><li class="post__tag__item"><a class="post__tag__link" href="/tags/Java/">Java</a></li><li class="post__tag__item"><a class="post__tag__link" href="/tags/笔记/">笔记</a></li></ul></footer></article><section class="reward"><a class="btn-reward" href="#">打赏</a><div class="reward-wrapper clearfix"><img src="/img/wechat.png" title="微信"></div></section></main><footer class="foot"><div class="foot-copy">&copy; 2019 Hash</div></footer><script src="/js/scroller.js"></script><script src="/js/main.js"></script></body></html>

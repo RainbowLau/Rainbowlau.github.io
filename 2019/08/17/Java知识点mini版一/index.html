@@ -1,0 +1,466 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta name="generator" content="Hexo 3.9.0"><meta charset="utf-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="author" content="Hash"><meta name="description" content=" 人是万物的尺度 "><link rel="alternative" href="/atom.xml" title="Rainbow" type="application/atom+xml"><link rel="icon" href="/favicon.png"><title>Java知识点mini版一 - Rainbow</title><link rel="stylesheet" href="/css/main.css"><link rel="stylesheet" href="/js/fancybox/jquery.fancybox.min.css"><!--[if lt IE 9]><script>(function(a,b){a="abbr article aside audio bdi canvas data datalist details dialog figcaption figure footer header hgroup main mark meter nav output progress section summary template time video".split(" ");for(b=a.length-1;b>=0;b--)document.createElement(a[b])})()</script><![endif]--><script src="/js/jquery-3.1.1.min.js"></script><script src="/js/fancybox/jquery.fancybox.min.js"></script></head><body style="opacity:0"><header class="head"><h1 class="head-title u-fl"><a href="/">Rainbow</a></h1><nav class="head-nav u-fr"><ul class="head-nav__list"><li class="head-nav__item"><a class="head-nav__link" href="/tags">标签</a></li><li class="head-nav__item"><a class="head-nav__link" href="/archives">目录</a></li></ul></nav></header><main class="main"><article class="post"><header class="post__head"><time class="post__time" datetime="2019-08-17T08:16:42.000Z">2019 - 08 - 17 16:16:42</time><h1 class="post__title"><a href="/2019/08/17/Java知识点mini版一/">Java知识点mini版一</a></h1><div class="post__main echo"><h2 id="主方法调用类过程"><a href="#主方法调用类过程" class="headerlink" title="主方法调用类过程"></a>主方法调用类过程</h2><ol>
+<li>创建类</li>
+<li>类里创建方法</li>
+<li>main函数里,创建该类的对象 <code>类名 对象名 = new 类名()</code></li>
+<li>调用 <code>对象名.方法名</code></li>
+</ol>
+<h2 id="创建方法过程"><a href="#创建方法过程" class="headerlink" title="创建方法过程"></a>创建方法过程</h2><ol>
+<li>如果在静态类中,只能创建静态对象</li>
+<li>类中 <code>限定修饰符 返回值类型 类名 (参数类型 参数名){方法 返回值};</code></li>
+<li>例如 </li>
+</ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//在main中直接调用</span></span><br><span class="line"><span class="comment">//sumScore(20,90,80);</span></span><br><span class="line"><span class="comment">//去掉static,只能创建对象调用</span></span><br><span class="line"> <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">int</span> <span class="title">sumScore</span> <span class="params">(<span class="keyword">int</span> a,<span class="keyword">int</span> b,<span class="keyword">int</span> c)</span></span>&#123;</span><br><span class="line">	 <span class="keyword">int</span> sum = a+b+c;</span><br><span class="line">	 <span class="keyword">return</span> sum;</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="switch结构中"><a href="#switch结构中" class="headerlink" title="switch结构中"></a>switch结构中</h2><ul>
+<li>break不建议省略</li>
+<li>default 不建议省略,影响程序的健壮性</li>
+<li>如果有return,可以省略break;</li>
+</ul>
+<h2 id="final使用"><a href="#final使用" class="headerlink" title="final使用"></a>final使用</h2><ul>
+<li>fianl 定义在类中必须要初始化变量</li>
+<li>在方法中可以不初始化,但只能定义一次<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Student</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">final</span> <span class="keyword">int</span> A = <span class="number">10</span>;</span><br><span class="line">	<span class="keyword">final</span> <span class="keyword">int</span> c;	<span class="comment">//报错</span></span><br><span class="line">	</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span>	<span class="title">mothod</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    	<span class="keyword">final</span> <span class="keyword">int</span> b; <span class="comment">//不报错</span></span><br><span class="line">		b = <span class="number">4</span>;</span><br><span class="line">		b = <span class="number">5</span>; <span class="comment">//报错, 解决方法,去掉final</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h2 id="静态方法和非静态方法"><a href="#静态方法和非静态方法" class="headerlink" title="静态方法和非静态方法"></a>静态方法和非静态方法</h2><ol>
+<li>静态方法属于类所有,类实例化前即可使用</li>
+<li>非静态方法可以访问类中的任何成员,静态方法只能访问类中的静态成员</li>
+<li>因为静态方法在类实例化前就可以使用，而类中的非静态变量必须在实例化之后才能分配内存；</li>
+<li>static内部只能出现static变量和其他static方法!而且static方法中还不能使用this等关键字，因为它是属于整个类</li>
+<li>静态方法和效率比实例化高，静态方法的缺点是不自动进行销毁，而实例化的则可以做销毁</li>
+<li>静态方法和静态变量创建后始终使用同一块内存，而使用实例的方式会创建多个内存。</li>
+<li>主要区别: <code>静态方法在创建对象前就可以使用,非静态必须通过new出来的对象调用</code></li>
+</ol>
+<h2 id="堆内存和栈内存"><a href="#堆内存和栈内存" class="headerlink" title="堆内存和栈内存"></a>堆内存和栈内存</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line">phone p = <span class="keyword">new</span>  phone();</span><br><span class="line"></span><br><span class="line">phone p 在栈内存, <span class="number">16</span>进制地址,p.call(); 调用方法 入栈,执行完毕,出栈</span><br><span class="line">phone p2 = p; 同类型对象可以这样指向赋值,但当修改p2的时候,p也会对应的修改,因为指向地址为同一个地址</span><br><span class="line"><span class="string">"引用型数据类型"</span> p2和p指向同一个地址,所以修改的时候,都会修改</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">new</span> phone();在堆内存  <span class="keyword">int</span> price <span class="keyword">int</span> px, 创建对象时为堆内存,为默认值</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">``` </span><br><span class="line"></span><br><span class="line"></span><br><span class="line">## 成员变量和局部变量</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">```java</span><br><span class="line"></span><br><span class="line">		局部变量：在方法内</span><br><span class="line">		成员变量：类中方法外</span><br><span class="line">		</span><br><span class="line">		内存中位置不同：</span><br><span class="line">			局部变量：栈内存</span><br><span class="line">			成员变量：堆内存</span><br><span class="line"></span><br><span class="line">		生命周期不同：</span><br><span class="line">			局部变量：随着方法的入栈而出现，方法出栈而消失</span><br><span class="line">			成员变量：随着对象创建而出现，随着对象被垃圾回收器的回收而消失</span><br><span class="line"></span><br><span class="line">		初始值不同：</span><br><span class="line">			局部变量：布尔型(<span class="keyword">boolean</span>) </span><br><span class="line">			变量默认值为 <span class="keyword">false</span>，<span class="keyword">byte</span>、<span class="keyword">short</span>、<span class="keyword">int</span>、<span class="keyword">long</span>为<span class="number">0</span>，</span><br><span class="line">			字符型为<span class="string">'\u0000'</span>(空字符)，</span><br><span class="line">			浮点型(<span class="keyword">float</span> <span class="keyword">double</span>)为<span class="number">0.0</span>,</span><br><span class="line">			引用类型(String)为 <span class="keyword">null</span>。<span class="keyword">char</span> <span class="string">'\u0000'</span> </span><br><span class="line">			空字符串   String <span class="keyword">null</span></span><br><span class="line">		局部变量没有初始值</span><br></pre></td></tr></table></figure>
+
+<h2 id="自定义数组"><a href="#自定义数组" class="headerlink" title="自定义数组"></a>自定义数组</h2><ol>
+<li>先创建一个类,封装</li>
+<li>在另一个类中实例化对象</li>
+<li>自定义变量</li>
+</ol>
+<ul>
+<li>封装类</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">DVD</span> </span>&#123;</span><br><span class="line">	<span class="keyword">private</span> String dName;	<span class="comment">//dvd名字</span></span><br><span class="line">	<span class="keyword">private</span> <span class="keyword">int</span> dCount;		<span class="comment">//记录次数</span></span><br><span class="line">	<span class="keyword">private</span> <span class="keyword">boolean</span> status = <span class="keyword">true</span>;	<span class="comment">//默认为false,定义为true</span></span><br><span class="line">	</span><br><span class="line">	</span><br><span class="line">	</span><br><span class="line">	<span class="function"><span class="keyword">public</span> String <span class="title">getdName</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		<span class="keyword">return</span> dName;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setdName</span><span class="params">(String dName)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">this</span>.dName = dName;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">getdCount</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		<span class="keyword">return</span> dCount;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setdCount</span><span class="params">(<span class="keyword">int</span> dCount)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">this</span>.dCount = dCount;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">isStatus</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		<span class="keyword">return</span> status;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setStatus</span><span class="params">(<span class="keyword">boolean</span> status)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">this</span>.status = status;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>另一个类</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">   <span class="comment">//类中方法外</span></span><br><span class="line">   DVD dvds[] = <span class="keyword">new</span> DVD[<span class="number">100</span>];</span><br><span class="line"><span class="keyword">int</span> count = <span class="number">0</span>;  <span class="comment">//数组的实际大小</span></span><br><span class="line"></span><br><span class="line">   <span class="comment">//方法中</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">addDVD</span><span class="params">()</span> </span>&#123;</span><br><span class="line">       <span class="comment">//DVD dvd = new DVD();		 使用这个之后,就不用定义dvds语句</span></span><br><span class="line">	<span class="comment">//提示用户进行输入添加的名字</span></span><br><span class="line">	System.out.println(<span class="string">"请输入要添加的DVD名字"</span>);</span><br><span class="line">	Scanner sc =  <span class="keyword">new</span> Scanner(System.in);</span><br><span class="line">	String dName = sc.nextLine();</span><br><span class="line">	</span><br><span class="line">	</span><br><span class="line">	<span class="comment">//使用数组下标进行添加 下标位置和count值相同</span></span><br><span class="line">	<span class="comment">//如果不添加这行代码, 必须添加DVD dvd = new DVD();</span></span><br><span class="line">	dvds[count] = <span class="keyword">new</span> DVD();		<span class="comment">//为定义数组开辟空间</span></span><br><span class="line">	dvds[count++].setdName(dName);</span><br><span class="line">	back(); <span class="comment">//调用back方法</span></span><br><span class="line">	</span><br><span class="line">	</span><br><span class="line">	DVD temp; </span><br><span class="line">	<span class="comment">//两者相等</span></span><br><span class="line">	String name;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="break-关键字"><a href="#break-关键字" class="headerlink" title="break 关键字"></a>break 关键字</h2><blockquote>
+<p>可以直接退出当前循环，忽略循环体中任何语句和循环条件测试<br>switch中或者循环语句</p>
+</blockquote>
+<ul>
+<li><p>用法</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">JavaBreak</span> </span>&#123;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">int</span> intary[] = &#123;<span class="number">99</span>,<span class="number">12</span>,<span class="number">22</span>,<span class="number">34</span>,<span class="number">45</span>,<span class="number">67</span>,<span class="number">5678</span>,<span class="number">8990</span>&#125;;</span><br><span class="line">		<span class="keyword">int</span> no = <span class="number">5678</span>;</span><br><span class="line">		<span class="keyword">int</span> i = <span class="number">0</span>;</span><br><span class="line">		<span class="keyword">boolean</span> found = <span class="keyword">false</span>;</span><br><span class="line">		<span class="keyword">for</span> ( ; i &lt; intary.length; i++) &#123;</span><br><span class="line">			<span class="keyword">if</span> (intary[i] == no) &#123;</span><br><span class="line">				found = <span class="keyword">true</span>;</span><br><span class="line">				<span class="keyword">break</span>;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">if</span> (found) &#123;</span><br><span class="line">			System.out.println(no+<span class="string">" 元素的索引位置在："</span>+i);</span><br><span class="line">		&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">			System.out.println(no +<span class="string">" 元素不在数组中"</span>);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>利用标记</p>
+</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//笔试:break目前位于内层的for循环，如何才能让break作用于外层 的for循环。可以标记解决标记的命名只要符合标识符的命名规则即可</span></span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">		aaa: <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; <span class="number">3</span>; j++) &#123; <span class="comment">// j=0 外层for循环</span></span><br><span class="line">			bbb: <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">2</span>; i++) &#123; <span class="comment">// i=0 内层for循环</span></span><br><span class="line">				System.out.println(<span class="string">"hello world"</span>); <span class="comment">// </span></span><br><span class="line">				<span class="keyword">break</span> aaa;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="循环数组常用方法"><a href="#循环数组常用方法" class="headerlink" title="循环数组常用方法"></a>循环数组常用方法</h2><blockquote>
+<p>方法外，提前定义一个<code>boolean</code>，且初始化为false，如果找到就改变为true，break语句结束，利用<code>boolean</code>类进行判断</p>
+</blockquote>
+<h2 id="和-equals"><a href="#和-equals" class="headerlink" title="==和 equals"></a>==和 equals</h2><ul>
+<li>基本数据类型,<code>byte,short,char,int,long,float,double,boolean</code>,它们之间用(==),比较的是他们的值</li>
+<li>引用数据类型(复合数据类型)<ul>
+<li>当它们用<code>==</code>比较,比较的是内存中<code>存放地址</code>,除非是一个new出来的为true否则为false</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">String s = <span class="keyword">new</span> String(<span class="string">"123"</span>);</span><br><span class="line">String s1 = <span class="keyword">new</span>  String(<span class="string">"123"</span>);</span><br><span class="line"></span><br><span class="line">System.out.println(s==s1);</span><br><span class="line">System.out.println(s.equals(s1));</span><br></pre></td></tr></table></figure>
+
+<h4 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h4><ul>
+<li><p>对于==</p>
+<ul>
+<li>如果作用于基本数据类型的变量，则直接比较其存储的 “值”是否相等；</li>
+<li>如果作用于引用类型的变量，则比较的是所指向的对象的地址</li>
+</ul>
+</li>
+<li><p>equals,注意：equals方法不能作用于基本数据类型的变量</p>
+<ul>
+<li>如果没有对equals方法进行重写，则比较的是引用类型的变量所指向的对象的地址</li>
+<li>诸如String、Date等类对equals方法进行了重写的话，比较的是所指向的对象的内容。</li>
+</ul>
+</li>
+</ul>
+<h2 id="抽象类-继承"><a href="#抽象类-继承" class="headerlink" title="抽象类 继承"></a>抽象类 继承</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment">//子类Stuent</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Student</span> <span class="keyword">extends</span> <span class="title">Person</span></span>&#123;<span class="comment">//子类定义+继承</span></span><br><span class="line">	<span class="comment">//添加的两个属性</span></span><br><span class="line">	<span class="keyword">private</span> <span class="keyword">float</span> math;</span><br><span class="line">	<span class="keyword">private</span> <span class="keyword">float</span> english;</span><br><span class="line">	<span class="comment">//重载构造方法</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="title">Student</span><span class="params">()</span> </span>&#123;&#125;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="title">Student</span><span class="params">(String name,String addr)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">super</span>(name,addr);<span class="comment">//super用法：调用父类构造方法，间接使用父类的私有属性；</span></span><br><span class="line"><span class="comment">//若是直接使用赋值语句this.name = name,立马报错，因为name在父类中可见性为private，子类中无法直接访问，只可通过父类中的公有方法访问它</span></span><br><span class="line"><span class="comment">//若是想访问父类中的公有方法，通常情况下需要先实例化一个对象，通过对象访问非私有方法/属性，这有点麻烦</span></span><br><span class="line"><span class="comment">//于是super代表一个默认父类对象应运而生，直接用它访问就好了，提供了极大便利</span></span><br><span class="line">	&#125;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="title">Student</span><span class="params">(String name,String addr,<span class="keyword">int</span> age,<span class="keyword">char</span> sex,<span class="keyword">float</span> math,<span class="keyword">float</span> english)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">super</span>(name,addr,age,sex);</span><br><span class="line">		<span class="keyword">this</span>.math = math;</span><br><span class="line">		<span class="keyword">this</span>.english = english;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="comment">//实现抽象方法</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> String <span class="title">getInfo</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		<span class="keyword">return</span> <span class="string">"name:"</span> + <span class="keyword">super</span>.getName() +<span class="string">" addr:"</span>+<span class="keyword">super</span>.getAddr()+<span class="string">" age:"</span>+<span class="keyword">super</span>.getAge()+</span><br><span class="line">				<span class="string">" sex:"</span>+<span class="keyword">super</span>.getSex()+<span class="string">" math:"</span>+<span class="keyword">this</span>.math+<span class="string">" endlish:"</span>+<span class="keyword">this</span>.english;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="super-在继承抽象类中的用法"><a href="#super-在继承抽象类中的用法" class="headerlink" title="super()在继承抽象类中的用法"></a>super()在继承抽象类中的用法</h2><blockquote>
+<p>可省略,系统自动创建,类似于构造方法</p>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">super</span>(name,addr);</span><br><span class="line"><span class="comment">//super用法：调用父类构造方法，间接使用父类的私有属性；</span></span><br><span class="line"><span class="comment">//若是直接使用赋值语句this.name = name,立马报错，因为name在父类中可见性为private，子类中无法直接访问，只可通过父类中的公有方法访问它</span></span><br><span class="line"><span class="comment">//若是想访问父类中的公有方法，通常情况下需要先实例化一个对象，通过对象访问非私有方法/属性，这有点麻烦</span></span><br><span class="line"><span class="comment">//于是super代表一个默认父类对象应运而生，直接用它访问就好了，提供了极大便利</span></span><br></pre></td></tr></table></figure>
+
+<p>补充</p>
+<ul>
+<li>构造方法的名字和类名是一致的,所以子类的初始化是无法继承父类的构造方法</li>
+<li>构造方法的作用是初始化成员变量.所以在子类初始化过程中,必须先执行父类中的初始化动作.</li>
+<li>子类中的构造器中默认有一个<code>super()</code>,表示调用父类的构造方法,父类成员变量初始化后,才能给子类使用</li>
+</ul>
+<h2 id="接口-设计工厂模式"><a href="#接口-设计工厂模式" class="headerlink" title="接口-设计工厂模式"></a>接口-设计工厂模式</h2><blockquote>
+<p>使用接口,继承,多态</p>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">interface</span> <span class="title">Phone</span> </span>&#123;</span><br><span class="line">	<span class="comment">//制定标准,都要实现send() 方法</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">send</span><span class="params">()</span></span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">AppPhone</span> <span class="keyword">implements</span> <span class="title">Phone</span></span>&#123;</span><br><span class="line"></span><br><span class="line">	<span class="meta">@Override</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">send</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		</span><br><span class="line">		System.out.println(<span class="string">"苹果手机发短信"</span>);</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">AndPhone</span> <span class="keyword">implements</span> <span class="title">Phone</span></span>&#123;</span><br><span class="line"></span><br><span class="line">	<span class="meta">@Override</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">send</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		System.out.println(<span class="string">"安卓手机发信息"</span>);</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MyPhone</span> <span class="keyword">implements</span> <span class="title">Phone</span></span>&#123;</span><br><span class="line"></span><br><span class="line">	<span class="meta">@Override</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">send</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		System.out.println(<span class="string">"自己手机发信息"</span>);</span><br><span class="line">		</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Factory</span></span>&#123;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">show</span><span class="params">(String type)</span> </span>&#123;	<span class="comment">//根据不同的参数</span></span><br><span class="line">		<span class="keyword">if</span>(type.equals(<span class="string">""</span>)) &#123;</span><br><span class="line">			System.out.println(<span class="string">"对不起类型为空"</span>);</span><br><span class="line">			<span class="keyword">return</span>;			<span class="comment">//结束方法</span></span><br><span class="line">		&#125;</span><br><span class="line">		Phone p = <span class="keyword">null</span>;		<span class="comment">//实例化对象的方法</span></span><br><span class="line">		</span><br><span class="line">		<span class="keyword">if</span>(type.equals(<span class="string">"Iphone"</span>)) &#123;</span><br><span class="line">			p = <span class="keyword">new</span> AppPhone();		<span class="comment">//父类引用指向子类对象 多态</span></span><br><span class="line">		&#125;<span class="keyword">else</span> <span class="keyword">if</span>(type.equals(<span class="string">"AndPhone"</span>)) &#123;</span><br><span class="line">			p = <span class="keyword">new</span> AndPhone();</span><br><span class="line">		&#125;<span class="keyword">else</span> &#123;</span><br><span class="line">			p = <span class="keyword">new</span> MyPhone();</span><br><span class="line">		&#125;</span><br><span class="line">		p.send();</span><br><span class="line">		</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">PhoneClass</span></span>&#123;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">		<span class="comment">//在类中调用其他的静态方法时 ,需要用 new 类名.方法名();</span></span><br><span class="line">		<span class="comment">//new  Factory.show();</span></span><br><span class="line">		Factory.show(<span class="string">""</span>);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>内存分析</li>
+</ul>
+<p><code>Father father = new Son();</code> 这句话可以裁成两部分,<br><code>Father father</code> 和<code>father = new Son();</code></p>
+<ol>
+<li>第一步,父类创建一个引用变量,放在栈内存中</li>
+<li>第二步,这个父类的引用变量指向new出来的子类对象,子类对象是存在于堆空间中的</li>
+</ol>
+<h2 id="接口-适配器模式"><a href="#接口-适配器模式" class="headerlink" title="接口-适配器模式"></a>接口-适配器模式</h2><blockquote>
+<p>使用一个现成的类,但它的<code>接口不完全</code>符合你的需求,只需要<code>其中一个</code>方法,不想重写其他方法</p>
+</blockquote>
+<ul>
+<li>一个接口,两个类</li>
+<li>使用其中的一个方法,用<code>适配器</code>作为<code>中间的过度</code></li>
+<li>实现过渡类里实现接口所有方法,但是不写方法体</li>
+<li>在用一个类,<code>继承</code>这个<code>过渡器</code>,重写需要的方法</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">WindowClass</span> </span>&#123;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line"><span class="comment">//		new MyWindows().close();  //匿名对象</span></span><br><span class="line">		MyWindows mw = <span class="keyword">new</span> MyWindows();</span><br><span class="line">		mw.close();</span><br><span class="line"><span class="comment">//		两者功能相同</span></span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">interface</span> <span class="title">Window</span></span>&#123;</span><br><span class="line">	<span class="function"><span class="keyword">void</span> <span class="title">max</span><span class="params">()</span></span>;</span><br><span class="line">	<span class="function"><span class="keyword">void</span> <span class="title">min</span><span class="params">()</span></span>;</span><br><span class="line">	<span class="function"><span class="keyword">void</span> <span class="title">close</span><span class="params">()</span></span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//适配器模式,实现接口所有的方法,但不写方法体</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">AdapterWindow</span> <span class="keyword">implements</span> <span class="title">Window</span></span>&#123;</span><br><span class="line"></span><br><span class="line">	<span class="meta">@Override</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">max</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		<span class="comment">// TODO Auto-generated method stub</span></span><br><span class="line">		</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="meta">@Override</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">min</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		<span class="comment">// TODO Auto-generated method stub</span></span><br><span class="line">		</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="meta">@Override</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">close</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		<span class="comment">// TODO Auto-generated method stub</span></span><br><span class="line">		</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MyWindows</span> <span class="keyword">extends</span> <span class="title">AdapterWindow</span></span>&#123;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">close</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		System.out.println(<span class="string">"实现关闭功能"</span>);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="接口和抽象类的区别"><a href="#接口和抽象类的区别" class="headerlink" title="接口和抽象类的区别"></a>接口和抽象类的区别</h2><ul>
+<li>关键字<ul>
+<li>使用abstract class声明</li>
+<li>使用interface</li>
+</ul>
+</li>
+<li>定义<ul>
+<li>包含一个抽象方法的类</li>
+<li>抽象方法和全局常亮的集合</li>
+</ul>
+</li>
+<li>组成<ul>
+<li>属性,方法,构造,常量,抽象方法</li>
+<li>全局常量,抽象方法</li>
+</ul>
+</li>
+<li>权限<ul>
+<li>抽象方法可以任意</li>
+<li>只能用public</li>
+</ul>
+</li>
+<li>使用<ul>
+<li>通过extends关键字继承抽象类</li>
+<li>通过implements关键字实现</li>
+<li>两者没有本质区别,但从实际上看,如果一个程序中抽象类和接口都可以使用的话,优先考虑接口,因为接口可以避免继承所带来的局限</li>
+</ul>
+</li>
+<li>设计模式<ul>
+<li>类:模板设计</li>
+<li>接口:工厂设计,代理设计</li>
+<li>两者联合可以完成适配器设计</li>
+</ul>
+</li>
+<li>实际作用<ul>
+<li>抽象类:只能做一个模板</li>
+<li>接口:作为标准,表示能力</li>
+</ul>
+</li>
+<li>实例化<ul>
+<li>都是依靠对象多态性,通过子类进行对象实例化</li>
+</ul>
+</li>
+</ul>
+<h2 id="与equals-的区别"><a href="#与equals-的区别" class="headerlink" title="==与equals()的区别"></a>==与equals()的区别</h2><ul>
+<li><code>==</code> 是直接比较的两个对象的堆内存地址,如果相等,则说明两个引用的是同一个对象地址</li>
+</ul>
+<p>但以下情况</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">int</span> a = <span class="number">12</span>;</span><br><span class="line">		<span class="keyword">int</span> b = <span class="number">12</span>;</span><br><span class="line">		System.out.println(a == b);	<span class="comment">//true</span></span><br><span class="line"></span><br><span class="line">		String s1 = <span class="string">"13"</span>;</span><br><span class="line">		String s2 = <span class="string">"13"</span>;</span><br><span class="line">		System.out.println(s1 == s2);	<span class="comment">//true</span></span><br><span class="line">		</span><br><span class="line">		String s3 = <span class="keyword">new</span> String(<span class="string">"13"</span>);</span><br><span class="line">		System.out.println(s1 == s3);	<span class="comment">//false</span></span><br><span class="line">		</span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure>
+
+<p>原因: </p>
+<ul>
+<li><p>对于基本数据类型<code>（byte，short，char，int，float，double，long，boolean）</code>来说，他们是作为常量在方法区中的常量池里面以HashSet策略存储起来的，对于这样的字符串 “123” 也是相同的道理，在常量池中，一个常量只会对应一个地址，因此不管是再多的 123,”123” 这样的数据都只会存储一个地址，所以所有他们的引用都是指向的同一块地址，因此基本数据类型和String常量是可以直接通过==来直接比较的。</p>
+</li>
+<li><p>另外，对于基本数据的包装类型（Byte, Short, Character，Integer，Float, Double，Long,  Boolean）除了Float和Double之外，其他的六种都是实现了常量池的，因此对于这些数据类型而言，一般我们也可以直接通过==来判断是否相等。</p>
+</li>
+</ul>
+<p>但又会有以下情况</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">Integer i1 = <span class="number">123</span>;</span><br><span class="line">Integer i2 = <span class="number">123</span>;</span><br><span class="line">System.out.println(i1 == i2);		<span class="comment">//true</span></span><br><span class="line"></span><br><span class="line">Integer n1 = <span class="number">128</span>;</span><br><span class="line">Integer n2 = <span class="number">128</span>;</span><br><span class="line">System.out.println(n1 == n2);		<span class="comment">//false</span></span><br></pre></td></tr></table></figure>
+
+<p>原因</p>
+<ul>
+<li>因为Integer 在常量池中存储范围是<strong>[-128,-127]</strong>,<code>i1 123</code>在这个范围内,因此直接存在常量池</li>
+<li>n1 128不在这个范围内,所以会在堆内存中创建一个新的对象来保存这个值,所以n1,n2分别指向两个不同的对象地址,所以不相等</li>
+</ul>
+<p>equlas方法</p>
+<ul>
+<li>很多说equlas比较的是对象的内容,但这样说法是不准确的</li>
+</ul>
+<p>equlas 源码</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">equals</span><span class="params">(Object anObject)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">this</span> == anObject) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>可以看到,OBject 类中equals方法是直接通过<code>==</code>来比较的,和<code>==</code>没有区别</li>
+<li>但为什么又要说又区别呢? 因为equals方法可以由我们自己重写的,编译器会自动生成equals方法</li>
+<li>eclipse首先判断,两个对象的地址值是否相等,不相等在进行成员变量进行判断</li>
+<li>但这个方法体是由我们自己实现的,即使直接return true都是可以的,只要能满足需求.因此eqals比较的并不一定是对象的内容,还可以由其他的信息来指导比较</li>
+</ul>
+<h2 id="String和char-重"><a href="#String和char-重" class="headerlink" title="String和char 重"></a>String和char 重</h2><ul>
+<li>区别<ol>
+<li>char表示的是字符,定义的时候用单引号,只能存储一个字符<code>char a = &#39;d&#39;;</code>   String表示的字符串,定义时候用双引号,可以存一个或者多个字符.<code>String s = &quot;hello&quot;;</code></li>
+<li>char是基本数据类型,String是个类,属于引用数据类型.String类可以调用方法,具有面向对象的特征</li>
+</ol>
+</li>
+<li>char类<ul>
+<li>char在Java中是16位,因为Java用的是Unicode</li>
+</ul>
+</li>
+<li>String类型<ol>
+<li>Java中有两种不同的方法来生成字符串对象,一种是调用String类的构造函数<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">String s0 = <span class="string">"Hello"</span>;</span><br><span class="line">String s1 = <span class="keyword">new</span> String(<span class="string">"Hello"</span>);</span><br><span class="line">System.out.println(s1==s0);     <span class="comment">//false</span></span><br></pre></td></tr></table></figure>
+
+</li>
+</ol>
+</li>
+</ul>
+<p>注意:Java为String类型提供缓冲机制,当使用双引号定义对象时,Java环境会首先去字符串缓冲池寻找内容相同的字符,如果存在就拿出来使用,否则就创建一个新的字符串放在缓冲池中</p>
+<ul>
+<li>产生/创建几个对象<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">String s = <span class="keyword">new</span> String(<span class="string">"a"</span>);</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<p>创建一个或者两个对象.如果常量池中没有原来的 “a”,就创建两个对象,如果常量池中有 “a”,就产生一个对象 如果问题换成涉及到几个对象,合理的解释就是 <code>两个</code></p>
+<ol>
+<li>String是final类,因此不能被继承,并且它成员方法都默认final方法. <code>Stringd对象一旦被创建就是固定不变的,对String的任何改变都不会影响到原对象,任何相关的操作都会生成新的对象</code></li>
+<li>字符串常量池</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">我们知道字符串的分配和其他对象分配一样，是需要消耗高昂的时间和空间的，而且字符串我们使用的非常多。</span><br><span class="line">JVM为了提高性能和减少内存的开销，在实例化字符串的时候进行了一些优化：使用字符串常量池。</span><br><span class="line">每当我们创建字符串常量时，JVM会首先检查字符串常量池，如果该字符串已经存在常量池中，那么就直接返回常量池中的实例引用。</span><br><span class="line">如果字符串不存在常量池中，就会实例化该字符串并且将其放到常量池中。</span><br><span class="line">由于String字符串的不可变性我们可以十分肯定常量池中一定不存在两个相同的字符串（这点对理解上面至关重要）</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>Java的常量池分为静态和运行时常量池<ul>
+<li>静态,*.class文件中的常量池，class文件中的常量池不仅仅包含字符串(数字)字面量，还包含类、方法的信息，占用class文件绝大部分空间。</li>
+<li>运行时常量池，则是jvm虚拟机在完成类装载操作后，将class文件中的常量池载入到内存中，并保存在方法区中，我们常说的<code>常量池，就是指方法区中的运行时常量池。</code></li>
+</ul>
+</li>
+</ul>
+<p>例子</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">String a = <span class="string">"fengtimo"</span>;</span><br><span class="line">String b = <span class="string">"fengtimo"</span>;</span><br></pre></td></tr></table></figure>
+
+<p>a,b的fengtimo都是指向JVM字符串常量池中的 “fengtimo”对象,他们指向同一个对象.</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">String c = <span class="keyword">new</span> String(<span class="string">"fengtimo"</span>);</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>new关键字一定会产生一个对象fengtimo<code>(但这个fengtimo和上面的fengtimo不同)</code></li>
+<li>同时这个对象是存在<code>堆</code>中的.</li>
+<li>所以上面应该是产生两个对象:保存在栈中的c和保存在堆中的fengtimo.</li>
+<li>但Java中根本不存在两个完全一样的字符串对象,所以堆中的fengtimo应该是引用字符串常量池中fengtimi</li>
+<li>所以c,fengtimo,池fengtimo之间的关系应该是<br><code>c--&gt;fengtimo--&gt;池fengtimo</code></li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">栈内存</span><br><span class="line">a   b   c</span><br><span class="line">a,b指向JVM字符串常量池中的</span><br><span class="line">fengtimo</span><br><span class="line">c指向堆内存中的冯提莫</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">堆内存</span><br><span class="line">fengtimo</span><br><span class="line">Char[]value</span><br><span class="line">指向常量池中的fengtimo</span><br><span class="line"></span><br><span class="line">常量池</span><br><span class="line">fengtimo</span><br><span class="line">Char[]value</span><br></pre></td></tr></table></figure>
+
+<p>总结</p>
+<ul>
+<li>虽然a,b,c,fengtimo是不同的对象,但从String的内部结构我们还是可以理解上面.</li>
+<li>String c = new String(“fengtimo”);虽然c的内容是创建在堆中，但是他的内部<code>value</code>还是指向<code>JVM常量池</code>的fengtimo的value，它构造fengtimo时所用的参数依然是<code>fengtimo</code>字符串常量。</li>
+</ul>
+<p>例子</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">String s1 = &quot;aa&quot;;</span><br><span class="line">String s2 = &quot;aa&quot;;</span><br><span class="line">System.out.println(s1 == s2);   //true</span><br></pre></td></tr></table></figure>
+
+<p>分析</p>
+<ul>
+<li>当执行<code>String s1 = &quot;aa&quot;;</code>时,JVM首先会去字符串池中查找是否存在<code>&quot;aa&quot;</code>这个对象</li>
+<li>不存在,则在字符串中创建<code>&quot;aa&quot;</code> 这个对象,然后将池中的<code>&quot;aa&quot;</code>这个对象的引用地址返回给字符串常量s1,这样s1会指向池中<code>&quot;aa&quot;</code>这个字符串对象;</li>
+<li>存在,则不创建任何对象,直接将池中的 <code>&quot;aa&quot;</code>这个对象的地址返回,赋值给字符串常量.</li>
+<li>当创建字符串对象s2的时候,字符串中已经存在 <code>&quot;aa&quot;</code> 这个对象,直接把对象 <code>&quot;aa&quot;</code> 的引用地址返回给s2,这样s2指向池中<code>&quot;aa&quot;</code>这个对象,也就是说s1和s2,指向同一个对象,所以返回true;</li>
+</ul>
+<p>例子</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">String s3 = <span class="keyword">new</span> String(<span class="string">"16"</span>);</span><br><span class="line">String s4 = <span class="keyword">new</span> String(<span class="string">"16"</span>);</span><br><span class="line">System.out.println(s1==s2);   <span class="comment">//false</span></span><br></pre></td></tr></table></figure>
+
+<p>分析</p>
+<ul>
+<li>采用new关键字新建一个字符串对象时，JVM首先在字符串池中查找有没有”16”这个字符串对象</li>
+<li>有，则不在池中再去创建”16”这个对象了，直接在堆中创建一个”16”字符串对象，然后将堆中的这个”16”对象的地址返回赋给引用s3，这样，s3就指向了堆中创建的这个”16”字符串对象</li>
+<li>没有，则首先在字符串池中创建一个”16”字符串对象，然后再在堆中创建一个”16”字符串对象，然后将堆中这个”16”字符串对象的地址返回赋给s3引用，这样，s3指向了堆中创建的这个”16”字符串对象</li>
+<li>当执行String s4=new String(“16”)时， 因为采用new关键字创建对象时，每次new出来的都是一个新的对象，也即是说引用s3和s4指向的是两个不同的对象，因此语句<code>System.out.println(s3 == s4);</code>   输出：false</li>
+</ul>
+<p>例子</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//	编译期确定</span></span><br><span class="line">	String s0 = <span class="string">"HelloWorld"</span>;</span><br><span class="line">	String s1 = <span class="string">"HelloWorld"</span>;</span><br><span class="line">	String s2 = <span class="string">"Hello"</span>+<span class="string">"World"</span>;</span><br><span class="line">	System.out.println(s0==s1);		<span class="comment">//true</span></span><br><span class="line">	System.out.println(s0==s2);		<span class="comment">//true</span></span><br></pre></td></tr></table></figure>
+
+<p>分析</p>
+<ul>
+<li>因为例子中的s0和s1中的”HelloWorld”都是字符串常量，它们在<code>编译期就被确定</code>了，所以s0==s1为true；</li>
+<li>“Hello”和”World”也都是字符串常量，<code>当一个字符串由多个字符串常量连接而成时，它自己肯定也是字符串常量</code></li>
+<li>所以,s2也同样在编译期就被解析为一个字符串常量，所以s2也是常量池中”helloworld”的一个引用。所以我们得出<code>s0==s1==s2</code></li>
+</ul>
+<p>例</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">   <span class="comment">//编译期无法确定</span></span><br><span class="line">String s0 = <span class="string">"HelloWorld"</span>;</span><br><span class="line">String s1 = <span class="keyword">new</span> String(<span class="string">"HelloWorld"</span>);</span><br><span class="line">String s2 = <span class="string">"Hello"</span> + <span class="keyword">new</span> String(<span class="string">"World"</span>);</span><br><span class="line">System.out.println(s0==s1);</span><br><span class="line">System.out.println(s0==s2);</span><br><span class="line">System.out.println(s1==s2);</span><br><span class="line"><span class="comment">//返回值全是false</span></span><br></pre></td></tr></table></figure>
+
+<p>分析</p>
+<ul>
+<li>用<code>new String()</code> 创建的字符串不是常量,不能再编译期就确定,所以<code>new String()</code>创建的字符串不放入常量池中,它们有自己的地址空间</li>
+<li>s0还是常量池中”HelloWorld”的引用，s1因为无法在编译期确定，所以是运行时创建的新对象”HelloWorld”的引用，s2因为有后半部分new String(”World”)所以也无法在编译期确定，所以也是一个新创建对象”HelloWorld”的引用。</li>
+</ul>
+<p>例</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">**</span><br><span class="line"> * 继续-编译期无法确定</span><br><span class="line"> */</span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">test5</span><span class="params">()</span></span>&#123;</span><br><span class="line">    String str1=<span class="string">"abc"</span>;   </span><br><span class="line">    String str2=<span class="string">"def"</span>;   </span><br><span class="line">    String str3=str1+str2;</span><br><span class="line">    System.out.println(<span class="string">"===========test5============"</span>);</span><br><span class="line">    System.out.println(str3==<span class="string">"abcdef"</span>); <span class="comment">//false</span></span><br></pre></td></tr></table></figure>
+
+<p>分析</p>
+<ul>
+<li>str3指向堆中的 “abcdef”对象,而”abcdef”是字符串池中的对象,所以结果为false;</li>
+<li><strong>JVM对String str=”abc”对象放在常量池中是在编译时做的，而String str3=str1+str2是在运行时刻才能知道的。new对象也是在运行时才做的。</strong></li>
+<li>这段代码总共创建了5个对象，字符串池中两个、堆中三个。+运算符会在堆中建立来两个String对象，这两个对象的值分别是”abc”和”def”，也就是说从字符串池中复制这两个值，然后在堆中创建两个对象，然后再建立对象str3,然后将”abcdef”的堆地址赋给str3。</li>
+</ul>
+<p>步骤</p>
+<ol>
+<li>栈中开辟一块中间存放引用str1，str1指向池中String常量”abc”。 </li>
+<li>栈中开辟一块中间存放引用str2，str2指向池中String常量”def”。</li>
+<li>栈中开辟一块中间存放引用str3。</li>
+<li>str1 + str2通过StringBuilder的最后一步toString()方法还原一个新的String对象”abcdef”，因此堆中开辟一块空间存放此对象。</li>
+<li>引用str3指向堆中(str1 + str2)所还原的新String对象。</li>
+<li>str3指向的对象在堆中，而常量”abcdef”在池中，输出为false。</li>
+</ol>
+<p>例子</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 比较字符串常量的“+”和字符串引用的“+”的区别</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">test8</span><span class="params">()</span></span>&#123;</span><br><span class="line">    String test=<span class="string">"javalanguagespecification"</span>;</span><br><span class="line">    String str=<span class="string">"java"</span>;</span><br><span class="line">    String str1=<span class="string">"language"</span>;</span><br><span class="line">    String str2=<span class="string">"specification"</span>;</span><br><span class="line">    System.out.println(<span class="string">"===========test8============"</span>);</span><br><span class="line">    System.out.println(test == <span class="string">"java"</span> + <span class="string">"language"</span> + <span class="string">"specification"</span>);</span><br><span class="line">    System.out.println(test == str + str1 + str2);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>结果 true,false</p>
+<p>分析</p>
+<ul>
+<li>字符串字面量<code>拼接操作</code>是在Java编<code>译器编译期间</code>就执行了，也就是说编译器编译时，直接把”java”、”language”和”specification”这三个字面量进行”+”操作得到一个”javalanguagespecification” 常量，并且直接将这个常量放入字符串池中，这样做实际上是一种优化，将3个字面量合成一个，避免了创建多余的字符串对象。</li>
+<li>而字符串引用的”+”运算是在Java运行期间执行的，即str + str2 + str3在程序执行期间才会进行计算，它会在堆内存中重新创建一个拼接后的字符串对象</li>
+<li><strong>总结来说就是：字面量”+”拼接是在编译期间进行的，拼接后的字符串存放在字符串池中；而字符串引用的”+”拼接运算实在运行时进行的，新创建的字符串存放在堆中。</strong></li>
+<li><strong>对于直接相加字符串，效率很高，因为在编译器便确定了它的值，也就是说形如”I”+”love”+”java”; 的字符串相加，在编译期间便被优化成了”Ilovejava”。对于间接相加（即包含字符串引用），形如s1+s2+s3; 效率要比直接相加低，因为在编译器不会对引用变量进行优化。</strong></li>
+</ul>
+<p>总结</p>
+<ul>
+<li><p>String类初始化后是不变的(immutable)</p>
+<ul>
+<li><p>String使用<code>private final char value[]</code>来实现字符串的存储，也就是说String对象创建之后，就不能再修改此对象中存储的字符串内容，就是因为如此，才说String类型是不可变的(immutable)。程序员不能对已有的不可变对象进行修改。我们自己也可以创建不可变对象，只要在接口中不提供修改数据的方法就可以。</p>
+</li>
+<li><p>但String 类对象有编辑字符的功能,比如replace().<code>这些编辑功能是通过创建一个新的对象来实现的，而不是对原有对象进行修改</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">s = s.replace(&quot;World&quot;,&quot;Universe&quot;);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>上面对s.replace()的调用将创建一个新的字符串”Hello Universe!”，并返回该对象的引用。通过赋值，引用s将指向该新的字符串。如果没有其他引用指向原有字符串”Hello World!”，原字符串对象将被垃圾回收。</p>
+</li>
+</ul>
+</li>
+<li><p>引用变量与对象</p>
+<ul>
+<li>A aa;<br>这个语句声明一个类A的引用变量aa[我们常常称之为句柄]，而对象一般通过new创建。所以aa仅仅是一个引用变量，它不是对象。</li>
+</ul>
+</li>
+<li><p>创建字符串方式</p>
+<ol>
+<li>使用 “” 创建的字符串</li>
+<li>使用new关键字创建字符串</li>
+</ol>
+</li>
+<li><p>结合上面例子,总结如下</p>
+<ol>
+<li>单独使用 “” 创建的字符串都是常量,编译期就存在String Pool中</li>
+<li>使用new String(“”) 创建对象会存在heap/堆中</li>
+</ol>
+</li>
+<li><p>使用</p>
+</li>
+</ul>
+<h2 id="Override和OverLoad"><a href="#Override和OverLoad" class="headerlink" title="Override和OverLoad"></a>Override和OverLoad</h2><h4 id="Override"><a href="#Override" class="headerlink" title="Override"></a>Override</h4><blockquote>
+<p>重写是子类对父类的允许访问的实现过程进行重写编写,返回值和形参都不能改变,即<strong>外壳不变,核心重写</strong>,好处在于子类可以根据需要,定义特定于自己的行为.也就是说子类能根据需要实现父类的方法</p>
+</blockquote>
+<ul>
+<li>参数列表必须完全与被重写方法的相同</li>
+<li>返回类型与被重写方法的返回类型可以不相同，但是必须是父类返回值的派生类</li>
+<li>访问权限不能比父类中被重写的方法的访问权限更低。例如：如果父类的一个方法被声明为 public，那么在子类中重写该方法就不能声明为 protected</li>
+<li>父类的成员方法只能被它的子类重写。</li>
+<li>声明为 final 的方法不能被重写,声明为 static 的方法不能被重写，但是能够被再次声明</li>
+<li>子类和父类在同一个包中，那么子类可以重写父类所有方法，除了声明为 private 和 final 的方法</li>
+<li>子类和父类不在同一个包中，那么子类只能够重写父类的声明为 public 和 protected 的非 final 方法。</li>
+<li>重写的方法能够抛出任何非强制异常，无论被重写的方法是否抛出异常。但是，重写的方法不能抛出新的强制性异常，或者比被重写方法声明的更广泛的强制性异常，反之则可以</li>
+<li>构造方法不能被重写。</li>
+<li>如果不能继承一个方法，则不能重写这个方法</li>
+</ul>
+<h4 id="Overrode"><a href="#Overrode" class="headerlink" title="Overrode"></a>Overrode</h4><blockquote>
+<p>在一个类里面,方法名字相同,而参数不同.返回类型可以相同也可以不同,每个重载的方法(构造),都必须有一个独一无二的参数类型列表,最常见的就是构造器的重载</p>
+</blockquote>
+<p>规则</p>
+<ul>
+<li>被重载的方法必须改变参数列表(个数或者类型)</li>
+<li>被重载的方法可以改变返回类型和访问修饰符</li>
+<li>可以声明新的或者更广的检查异常</li>
+<li>能够在同一类中或者一个子类中被重载</li>
+<li>无法以返回值类型作为重载函数的区分标准</li>
+</ul>
+<h4 id="总结-1"><a href="#总结-1" class="headerlink" title="总结"></a>总结</h4><blockquote>
+<p>重写Override和重载Overloading是Java多态性的不同表现,重写是父类和子类之间多态性的一种表现,重载可以理解成多态的具体表现形式</p>
+</blockquote>
+<ul>
+<li>重载时在一个类中定义多个方法名相同,而他们的参数的数量不同或数量相同而类型不同,次序不同,称为方法的重载(Overload)</li>
+<li>方法重写在子类存在方法与父类的方法的名字相同,参数个数与类型一样,返回值也一样,称为重写(override)</li>
+<li>方法重载是一类的多态性的表现,方法重写是子类和父类的一种多态性表现</li>
+</ul>
+<h2 id="数组-数据结构"><a href="#数组-数据结构" class="headerlink" title="数组 数据结构"></a>数组 数据结构</h2><blockquote>
+<p>数组和链表是两种基本的数据结构，他们在内存存储上的表现不一样，所以也有各自的特点</p>
+</blockquote>
+<h4 id="数组"><a href="#数组" class="headerlink" title="数组"></a>数组</h4><ol>
+<li><p>在内存中，数组是一块连续的区域 </p>
+</li>
+<li><p>数组需要预留空间</p>
+<ul>
+<li>在使用前需要提前申请所占内存的大小，这样不知道需要多大的空间，就预先申请可能会浪费内存空间，即数组空间利用率低 </li>
+<li>数组的空间在编译阶段就需要进行确定，所以需要提前给出数组空间的大小（在运行阶段是不允许改变的）</li>
+</ul>
+</li>
+<li><p>在数组起始位置处，插入数据和删除数据效率低。</p>
+<ul>
+<li>插入数据时，待插入位置的的元素和它后面的所有元素都需要向后搬移 </li>
+<li>删除数据时，待删除位置后面的所有元素都需要向前搬移</li>
+</ul>
+</li>
+<li><p>随机访问效率很高，时间复杂度可以达到O(1)</p>
+<ul>
+<li>因为数组的内存是连续的，想要访问那个元素，直接从数组的首地址处向后偏移就可以访问到了</li>
+</ul>
+</li>
+<li><p>数组开辟的空间，在不够使用的时候需要扩容，扩容的话，就会涉及到需要把旧数组中的所有元素向新数组中搬移 </p>
+</li>
+<li><p>数组的空间是从栈分配的</p>
+</li>
+</ol>
+<h4 id="数组优缺点"><a href="#数组优缺点" class="headerlink" title="数组优缺点"></a>数组优缺点</h4><p>优点</p>
+<ul>
+<li>随机访问性强，查找速度快，时间复杂度为O(1)</li>
+</ul>
+<p>缺点</p>
+<ul>
+<li>头插和头删的效率低，时间复杂度为O(N)</li>
+<li>空间利用率不高 </li>
+<li>内存空间要求高，必须有足够的连续的内存空间 </li>
+<li>数组空间的大小固定，不能动态拓展</li>
+</ul>
+<h4 id="链表"><a href="#链表" class="headerlink" title="链表"></a>链表</h4><ol>
+<li><p>在内存中，元素的空间可以在任意地方，空间是分散的，不需要连续 </p>
+</li>
+<li><p>链表中的元素都会两个属性，一个是元素的值，另一个是指针，此指针标记了下一个元素的地址</p>
+<ul>
+<li>每一个数据都会保存下一个数据的内存的地址，通过此地址可以找到下一个数据</li>
+</ul>
+</li>
+<li><p>查找数据时效率低,时间复杂度为O(N)</p>
+<ul>
+<li>因为链表的空间是分散的，所以不具有随机访问性，如要需要访问某个位置的数据，需要从第一个数据开始找起，依次往后遍历，直到找到待查询的位置，故可能在查找某个元素时，时间复杂度达到O(N)</li>
+</ul>
+</li>
+<li><p>空间不需要提前指定大小，是动态申请的，根据需求动态的申请和删除内存空间，扩展方便，故空间的利用率较高 </p>
+</li>
+<li><p>任意位置插入元素和删除元素效率较高，时间复杂度为O(1)</p>
+</li>
+<li><p>链表的空间是从堆中分配的</p>
+</li>
+</ol>
+<h4 id="优缺点"><a href="#优缺点" class="headerlink" title="优缺点"></a>优缺点</h4><p>优点</p>
+<ul>
+<li>任意位置插入元素和删除元素的速度快，时间复杂度为O(1) </li>
+<li>内存利用率高，不会浪费内存 </li>
+<li>链表的空间大小不固定，可以动态拓展</li>
+</ul>
+<p>优点</p>
+<ul>
+<li>随机访问效率低，时间复杂度为0(N)</li>
+</ul>
+<h2 id="TreeList"><a href="#TreeList" class="headerlink" title="TreeList"></a>TreeList</h2><ul>
+<li>存入对象时,实现Comparable接口</li>
+<li>或者使用Comparator </li>
+</ul>
+</div></header><footer class="post__foot u-cf"><ul class="post__tag u-fl"><li class="post__tag__item"><a class="post__tag__link" href="/tags/Java/">Java</a></li><li class="post__tag__item"><a class="post__tag__link" href="/tags/知识点/">知识点</a></li></ul></footer></article><section class="reward"><a class="btn-reward" href="#">打赏</a><div class="reward-wrapper clearfix"><img src="/img/wechat.png" title="微信"></div></section></main><footer class="foot"><div class="foot-copy">&copy; 2019 Hash</div></footer><script src="/js/scroller.js"></script><script src="/js/main.js"></script></body></html>
