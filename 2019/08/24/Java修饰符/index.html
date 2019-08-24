@@ -1,0 +1,190 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta name="generator" content="Hexo 3.9.0"><meta charset="utf-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="author" content="Hash"><link rel="alternative" href="/atom.xml" title="Rainbow" type="application/atom+xml"><link rel="icon" href="/favicon.png"><title>Java修饰符 - Rainbow</title><link rel="stylesheet" href="/css/main.css"><link rel="stylesheet" href="/js/fancybox/jquery.fancybox.min.css"><!--[if lt IE 9]><script>(function(a,b){a="abbr article aside audio bdi canvas data datalist details dialog figcaption figure footer header hgroup main mark meter nav output progress section summary template time video".split(" ");for(b=a.length-1;b>=0;b--)document.createElement(a[b])})()</script><![endif]--><script src="/js/jquery-3.1.1.min.js"></script><script src="/js/fancybox/jquery.fancybox.min.js"></script></head><body style="opacity:0"><header class="head"><h1 class="head-title u-fl"><a href="/">Rainbow</a></h1><nav class="head-nav u-fr"><ul class="head-nav__list"><li class="head-nav__item"><a class="head-nav__link" href="/tags">标签</a></li><li class="head-nav__item"><a class="head-nav__link" href="/archives">目录</a></li></ul></nav></header><main class="main"><article class="post"><header class="post__head"><time class="post__time" datetime="2019-08-24T07:33:25.000Z">2019 - 08 - 24 15:33:25</time><h1 class="post__title"><a href="/2019/08/24/Java修饰符/">Java修饰符</a></h1><div class="post__main echo"><h2 id="访问权限修饰符"><a href="#访问权限修饰符" class="headerlink" title="访问权限修饰符"></a>访问权限修饰符</h2><ul>
+<li>public: 被修饰的<strong>类,变量,方法</strong>,可以跨包/类访问</li>
+<li>private: 被其修饰的<strong>类、属性,方法</strong>只能被该类的对象访问，其子类不能访问，更不能允许跨包访问。</li>
+<li>protected：被其修饰的<strong>类、属性以及方法</strong>只能被类<strong>本身的方法及子类</strong>访问，即使<strong>子类在不同的包</strong>中也可以访问</li>
+<li>default：即不加任何访问修饰符，通常称为<strong>默认访问模式</strong>。该模式下，只允许在<strong>同一个包</strong>中进行访问</li>
+</ul>
+<h2 id="一-类"><a href="#一-类" class="headerlink" title="一 类"></a>一 类</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">访问修饰符 修饰符 <span class="class"><span class="keyword">class</span> 名称 <span class="keyword">extends</span> 父类名称 <span class="keyword">implements</span> 接口</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="访问修饰符"><a href="#访问修饰符" class="headerlink" title="访问修饰符"></a>访问修饰符</h3><table>
+<thead>
+<tr>
+<th>名称</th>
+<th>说明</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>public</td>
+<td>可以被所有类使用</td>
+<td>public类必须定义在类名相同的同名文件中</td>
+</tr>
+<tr>
+<td>default/缺省</td>
+<td>同一个包中</td>
+<td>类定义时不加任何修饰符</td>
+</tr>
+</tbody></table>
+<h3 id="修饰符"><a href="#修饰符" class="headerlink" title="修饰符"></a>修饰符</h3><table>
+<thead>
+<tr>
+<th>名称</th>
+<th>说明</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>final</td>
+<td>类不能被继承</td>
+<td></td>
+</tr>
+<tr>
+<td>abstract</td>
+<td>抽象</td>
+<td></td>
+</tr>
+</tbody></table>
+<h2 id="二-变量"><a href="#二-变量" class="headerlink" title="二 变量"></a>二 变量</h2><ol>
+<li>Java中没有全局变量,只有方法变量(局部),实例变量(成员,类中方法外),类变量(静态)</li>
+<li>方法中的变量<strong>不能有访问修饰符</strong>,下面修饰符只针对类中的</li>
+<li>声明实例(成员)变量时,如果没有赋初值,将会被初始化为null(引用),0或者false</li>
+<li>实例变量初始化器,{}包含的语句块,类的构造器被调用时运行,运行于构造器之后,构造器之前</li>
+<li>类变量(静态变量)也可以通过类变量初始化器进行初始化,类变量是一个用static 包含的语句块,只能被初始化一次</li>
+</ol>
+<h3 id="访问修饰符-1"><a href="#访问修饰符-1" class="headerlink" title="访问修饰符"></a>访问修饰符</h3><table>
+<thead>
+<tr>
+<th>名称</th>
+<th>说明</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>public</td>
+<td>可以被任何类</td>
+<td>row 1 col 2</td>
+</tr>
+<tr>
+<td>protected</td>
+<td>可以被同一包中的所有类访问；可以被所有子类访问，子类可跨包</td>
+<td>子类没有在同一包中也可以访问</td>
+</tr>
+<tr>
+<td>private</td>
+<td>只能够被当前类的方法访问</td>
+<td>子类不能访问</td>
+</tr>
+<tr>
+<td>缺省</td>
+<td>可以被同一包中的所有类访问</td>
+<td>如果子类不是在同一个包中，则不可访问。</td>
+</tr>
+</tbody></table>
+<h3 id="修饰符-1"><a href="#修饰符-1" class="headerlink" title="修饰符"></a>修饰符</h3><table>
+<thead>
+<tr>
+<th>名称</th>
+<th>说明</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>static</td>
+<td>静态变量(又称为类变量，其他的称为实例变量)</td>
+<td>可以被类的所有实例共享</td>
+</tr>
+<tr>
+<td>final</td>
+<td>常值，值只能分配一次，不能更改</td>
+<td>row 1 col 2</td>
+</tr>
+<tr>
+<td>volatile</td>
+<td>指出可能有多个线程修改此变量，要求编译器优化以保证对此变量的修改能够被正确的处理</td>
+<td>row 1 col 2</td>
+</tr>
+</tbody></table>
+<h2 id="三-方法"><a href="#三-方法" class="headerlink" title="三 方法"></a>三 方法</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">访问修饰符 修饰符 返回值类型 方法名(参数类型 参数名称 ) <span class="keyword">throws</span> 异常&#123;</span><br><span class="line">    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ol>
+<li>类的构造器不能有修饰符,返回类型和throws子句</li>
+<li>类的构造器被调用的时候,首先调用父类的构造器方法,然后运行实例变量和静态变量的初始化器,最后运行构造器本身</li>
+<li>super() 不写会默认添加</li>
+<li>private的使用注意</li>
+</ol>
+<h3 id="访问修饰符-2"><a href="#访问修饰符-2" class="headerlink" title="访问修饰符"></a>访问修饰符</h3><table>
+<thead>
+<tr>
+<th>名称</th>
+<th>说明</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>public</td>
+<td>所有类访问</td>
+<td></td>
+</tr>
+<tr>
+<td>protected</td>
+<td>同一个包中所有类,被所有子类访问</td>
+<td>子类不在同一个包中也可以</td>
+</tr>
+<tr>
+<td>private</td>
+<td>只能被当前类的方法访问</td>
+<td></td>
+</tr>
+<tr>
+<td>缺省</td>
+<td>可以被同一包中的所有类访问</td>
+<td>子类不在一个包中,不能访问</td>
+</tr>
+</tbody></table>
+<h3 id="修饰符-2"><a href="#修饰符-2" class="headerlink" title="修饰符"></a>修饰符</h3><table>
+<thead>
+<tr>
+<th>名称</th>
+<th>说明</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>static</td>
+<td>静态方法(又称为类方法，其它的称为实例方法)</td>
+<td>不依赖实例,类名.调用</td>
+</tr>
+<tr>
+<td>final</td>
+<td>防止任何子类重载该方法</td>
+<td></td>
+</tr>
+</tbody></table>
+<p>abstract | 抽象方法，类中已声明而没有实现的方法。 |  不能将static方法、final方法或者类的构造器方法声明为abstract</p>
+<p>synchronized |  多线程的支持 | 当一个此方法被调用时，没有其它线程能够调用该方法，其它的synchronized方法也不能调用该方法，直到该方法返回</p>
+<h2 id="四-接口"><a href="#四-接口" class="headerlink" title="四: 接口"></a>四: 接口</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">访问修饰符 <span class="class"><span class="keyword">interface</span> 接口名称 <span class="keyword">extends</span> 接口列表</span></span><br></pre></td></tr></table></figure>
+
+<ol>
+<li>接口不能定义其方法的任何实现(没有方法体)</li>
+<li>接口中变量定义为<code>public static final 接口名称</code> 但可以不包含这些修饰符，编译器默认就是这样，显示的包含修饰符主要是为了程序清晰。</li>
+</ol>
+<h3 id="访问修饰符-3"><a href="#访问修饰符-3" class="headerlink" title="访问修饰符"></a>访问修饰符</h3><table>
+<thead>
+<tr>
+<th>名称</th>
+<th>说明</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>public</td>
+<td>所有</td>
+<td></td>
+</tr>
+<tr>
+<td>缺省</td>
+<td>同一个包内</td>
+<td></td>
+</tr>
+</tbody></table>
+</div></header><footer class="post__foot u-cf"><ul class="post__tag u-fl"><li class="post__tag__item"><a class="post__tag__link" href="/tags/Java/">Java</a></li><li class="post__tag__item"><a class="post__tag__link" href="/tags/碎笔记/">碎笔记</a></li></ul></footer></article><section class="reward"><a class="btn-reward" href="#">打赏</a><div class="reward-wrapper clearfix"><img src="/img/wechat.png" title="微信"></div></section></main><footer class="foot"><div class="foot-copy">&copy; 2019 Hash</div></footer><script src="/js/scroller.js"></script><script src="/js/main.js"></script></body></html>
