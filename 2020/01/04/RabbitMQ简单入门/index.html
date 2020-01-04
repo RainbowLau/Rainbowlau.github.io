@@ -1,0 +1,151 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta name="generator" content="Hexo 3.9.0"><meta charset="utf-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="author" content="愿在衣而为领 承华首之余芳"><link rel="alternative" href="/atom.xml" title="Get Busy Living" type="application/atom+xml"><link rel="icon" href="/favicon.png"><title>RabbitMQ简单入门 - Get Busy Living</title><link rel="stylesheet" href="/css/main.css"><link rel="stylesheet" href="/js/fancybox/jquery.fancybox.min.css"><!--[if lt IE 9]><script>(function(a,b){a="abbr article aside audio bdi canvas data datalist details dialog figcaption figure footer header hgroup main mark meter nav output progress section summary template time video".split(" ");for(b=a.length-1;b>=0;b--)document.createElement(a[b])})()</script><![endif]--><script src="/js/jquery-3.1.1.min.js"></script><script src="/js/fancybox/jquery.fancybox.min.js"></script></head><body style="opacity:0"><header class="head"><h1 class="head-title u-fl"><a href="/">Get Busy Living</a></h1><nav class="head-nav u-fr"><ul class="head-nav__list"><li class="head-nav__item"><a class="head-nav__link" href="/archives">目录</a></li></ul></nav></header><main class="main"><article class="post"><header class="post__head"><time class="post__time" datetime="2020-01-04T00:59:58.000Z">2020 - 01 - 04 08:59:58</time><h1 class="post__title"><a href="/2020/01/04/RabbitMQ简单入门/">RabbitMQ简单入门</a></h1><div class="post__main echo"><p>12-31 消息队列 总结和发布</p>
+<p>分布式系统简述</p>
+<h2 id="Message-Queue"><a href="#Message-Queue" class="headerlink" title="Message Queue"></a>Message Queue</h2><blockquote>
+<p>Queue队列，是一种先进先出的数据结构。</p>
+</blockquote>
+<p>在Java中，已经有很多种队列</p>
+<p><img src="https://s2.ax1x.com/2020/01/03/lNXV0S.jpg" alt="lNXV0S.jpg"></p>
+<h2 id="Message-Queue-什么是消息队列"><a href="#Message-Queue-什么是消息队列" class="headerlink" title="Message Queue 什么是消息队列"></a>Message Queue 什么是消息队列</h2><blockquote>
+<p>Queue队列，是一种先进先出的数据结构。</p>
+</blockquote>
+<p>在Java中，已经有很多种队列，那为什么还需要消息队列(MQ)这种中间件呢？</p>
+<ul>
+<li>JMS和AMQP区别<ol>
+<li>JMS是Java提供的一套消息服务的API标准</li>
+<li>目的是为所有的Java应用程序提供统一的消息通信标准，类似JDBC</li>
+<li>前提遵循jms标准的应用程序之间，都可以进行消息通信</li>
+<li>JMS是Java语言专属的消息服务标准，在api层定义标准，只能用于Java</li>
+<li>AMQP是在协议层的标准，跨语言</li>
+</ol>
+</li>
+</ul>
+<ul>
+<li>消息队列可以简单理解为：把要传输的数据放在队列中。</li>
+</ul>
+<p><a href="https://imgchr.com/i/lNX1XV" target="_blank" rel="noopener"><img src="https://s2.ax1x.com/2020/01/03/lNX1XV.png" alt="lNX1XV.png"></a></p>
+<ul>
+<li>结构图</li>
+</ul>
+<p><img src="https://s2.ax1x.com/2020/01/03/lNjBCj.png" alt="lNjBCj.png"></p>
+<ul>
+<li>Broker：消息队列服务进程（中间件），此进程包括Exchange和Queue。</li>
+<li>Exchange：消息队列交换机，按一定的规则将消息路由转发到某个队列，对消息进行过滤</li>
+<li>Queue：消息队列，存储消息的队列，消息到达队列并转发给指定的消费方</li>
+<li>Producer：消息生产方，生产方客户端，她把消息发送到MQ</li>
+<li>Consumer：信息消费者，即消费者客户端，接收MQ转发的消息。</li>
+</ul>
+<ul>
+<li>定义<ul>
+<li>把数据放到消息队列叫做生产者</li>
+<li>从消息队列里边取数据叫做消费者</li>
+</ul>
+</li>
+</ul>
+<p><strong>发送流程</strong></p>
+<ol>
+<li>生产者和Broker建立TCP连接</li>
+<li>生产者和Broker建立通道</li>
+<li>生产者通过通道消息发送给Broker，由Exchange将消息转发</li>
+<li>Exchange将消息转发到指定的Queue（队列）</li>
+</ol>
+<p><strong>接收流程</strong></p>
+<ol>
+<li>消费者和Broker建立TCP连接</li>
+<li>消费者和Broker建立通道</li>
+<li>消费者监听指定的Queue</li>
+<li>当有消息到达Queue时，Broker默认将消息推送给消费者</li>
+<li>消费者接收到消息</li>
+</ol>
+<p><strong>发送端操作流程</strong></p>
+<ol>
+<li>创建连接</li>
+<li>创建通道</li>
+<li>声明队列</li>
+<li>发送消息</li>
+</ol>
+<p><strong>接收端流程</strong></p>
+<ol>
+<li>创建连接</li>
+<li>创建通道</li>
+<li>声明队列</li>
+<li>监听队列</li>
+<li>接收消息</li>
+<li>ack回复（Acknowledge character，包括三次握手）<br><img src="https://s2.ax1x.com/2020/01/03/lNxoB6.png" alt="lNxoB6.png"></li>
+</ol>
+<p>工作模式</p>
+<ol>
+<li>Work queues</li>
+<li>Publish/Subscribe</li>
+<li>Routing</li>
+<li>Topics</li>
+<li>Header</li>
+<li>RPC</li>
+</ol>
+<h2 id="二-为什么要使用"><a href="#二-为什么要使用" class="headerlink" title="二 为什么要使用"></a>二 为什么要使用</h2><blockquote>
+<p>或者是使用了有什么好处</p>
+</blockquote>
+<p><strong>2.1 解耦</strong></p>
+<ul>
+<li>不使用消息队列<ul>
+<li>系统A直接调用系统B，C</li>
+</ul>
+</li>
+</ul>
+<p><a href="https://imgchr.com/i/lNXQlq" target="_blank" rel="noopener"><img src="https://s2.ax1x.com/2020/01/03/lNXQlq.jpg" alt="lNXQlq.jpg"></a></p>
+<ul>
+<li>使用消息队列<ul>
+<li>系统A把数据写到队列中<strong>（发布者）</strong>，系统B和系统C<strong>（生产者）</strong>从消息队列中拿数据</li>
+<li>系统A，只负责把数据写到队列中，谁想要或不想要这个数据(消息)，系统A一点都不关心。</li>
+<li>即便现在系统C不想要userId这个数据了，系统B又突然想要userId这个数据了，都跟系统A无关，系统A一点代码都不用改。</li>
+<li>系统C拿数据不再经过系统A，而是从消息队列里拿，系统B即便挂了或者请求超时，都跟系统A无关，只跟消息队列有关。</li>
+<li>这样，<strong>系统A，与系统B，C，都解耦</strong></li>
+</ul>
+</li>
+</ul>
+<p><a href="https://imgchr.com/i/lNXMpn" target="_blank" rel="noopener"><img src="https://s2.ax1x.com/2020/01/03/lNXMpn.jpg" alt="lNXMpn.jpg"></a></p>
+<p><strong>2.2 异步</strong></p>
+<blockquote>
+<p>如同在飞猪或者携程买飞机高铁票，购买后显示占位成功，购票成功的信息延迟发送到短信。</p>
+</blockquote>
+<ul>
+<li>不使用消息队列，系统A是直接调用系统B，C</li>
+</ul>
+<p>假设系统A运算出userId具体的值需要50ms，调用系统B的接口需要300ms，调用系统C的接口需要300ms，调用系统D的接口需要300ms。那么这次请求就需要50+300+300+300=950ms</p>
+<p>并且我们得知，系统A做的是主要的业务，而系统B、C、D是非主要的业务。比如系统A处理的是订单下单，而系统B是订单下单成功了，那发送一条短信告诉具体的用户此订单已成功，而系统C和系统D也是处理一些小事而已。</p>
+<p>那么此时，提高用户体验和吞吐量，其实可以异步调用系统B，C、D的接口。</p>
+<ul>
+<li>使用消息队列，系统A，发送数据信息到消息队列中<br><a href="https://imgchr.com/i/lNX8mT" target="_blank" rel="noopener"><img src="https://s2.ax1x.com/2020/01/03/lNX8mT.jpg" alt="lNX8mT.jpg"></a></li>
+<li>小结<ul>
+<li>系统A把数据写到消息队列，立刻返回，用时100ms</li>
+<li>系统B，C，D异步从消息队列中拿数据，处理事务</li>
+</ul>
+</li>
+</ul>
+<p><strong>2.3削峰/限流</strong></p>
+<blockquote>
+<p>比如一个秒杀活动，期间并发可能很高，比如每秒3000个请求。假设我们现在有两台机器处理请求，并且每台机器只能每次处理1000个请求。</p>
+</blockquote>
+<p>那么多出来的1000请求，系统可能会扛不住，挂掉。那么可以使用消息对队列，<strong>把处理请求放到消息队列中</strong>。<br>系统B和系统C根据自己的能够处理的请求数去消息队列中拿数据，这样即便有每秒有8000个请求，那只是把请求放在消息队列中，去拿消息队列的消息由系统自己去控制，这样就不会把整个系统给搞崩。</p>
+<h2 id="三，注意的问题"><a href="#三，注意的问题" class="headerlink" title="三，注意的问题"></a>三，注意的问题</h2><blockquote>
+<p>JDK虽然队列的种类很多，但都是简单的内存队列</p>
+</blockquote>
+<p><strong>3.1高可用</strong></p>
+<blockquote>
+<p>如果采用单机的消息队列，万一机器挂掉，那么这个系统整个就坏掉</p>
+</blockquote>
+<p><a href="https://imgchr.com/i/lNXmkQ" target="_blank" rel="noopener"><img src="https://s2.ax1x.com/2020/01/03/lNXmkQ.jpg" alt="lNXmkQ.jpg"></a></p>
+<p>当项目中使用消息队列，都是集群和分布式的。</p>
+<p><strong>3.2数据丢失问题</strong></p>
+<blockquote>
+<p>将数据写到消息队列上，系统B和C还没有获取消息队列的数据，就挂掉，如果没有补救措施，数据则丢失了</p>
+</blockquote>
+<p>类似与Redis，rabbitmq设置持久化到磁盘，</p>
+<p>生产者选择使用rabbitmq提供事务功能但是会影响性能。可以开启confirm模式，，你每次写的消息都会分配一个唯一的id，然后如果写入了rabbitmq中，rabbitmq会给你回传一个ack消息，告诉你说这个消息ok了。如果rabbitmq没能处理这个消息，会回调你一个nack接口，告诉你这个消息接收失败</p>
+<p>事务机制和confirm机制的不同在于，事务机制是同步的，你提交一个事务之后会阻塞在那儿，但是confirm机制是异步的，你发送个消息之后就可以发送下一个消息，然后那个消息rabbitmq接收了之后会异步回调你一个接口通知你这个消息接收到了。</p>
+<p>所以一般在生产者这块避免数据丢失，都是用confirm机制的。</p>
+<p><strong>3.3消费者怎么得到消息队列的数据</strong></p>
+<ol>
+<li>生产者将数据放到消息队列中，消息队列有数据，主动叫消费者去拿(push)</li>
+<li>消费者不断轮训消息队列，看看有没有新的数据，如果有就消费(pull)</li>
+</ol>
+</div></header><footer class="post__foot u-cf"><ul class="post__tag u-fl"><li class="post__tag__item"><a class="post__tag__link" href="/tags/MQ/">MQ</a></li><li class="post__tag__item"><a class="post__tag__link" href="/tags/Rabbit/">Rabbit</a></li></ul></footer></article><section class="reward"><a class="btn-reward" href="#">打赏</a><div class="reward-wrapper clearfix"><img src="/img/wechat.png" title="微信"></div></section></main><footer class="foot"><div class="foot-copy">&copy; 2019 - 2020 愿在衣而为领 承华首之余芳</div></footer><script src="/js/scroller.js"></script><script src="/js/main.js"></script></body></html>
