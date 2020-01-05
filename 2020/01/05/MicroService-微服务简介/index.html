@@ -1,0 +1,104 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta name="generator" content="Hexo 3.9.0"><meta charset="utf-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="author" content="愿在衣而为领 承华首之余芳"><link rel="alternative" href="/atom.xml" title="Get Busy Living" type="application/atom+xml"><link rel="icon" href="/favicon.png"><title>MicroService 微服务简介 - Get Busy Living</title><link rel="stylesheet" href="/css/main.css"><link rel="stylesheet" href="/js/fancybox/jquery.fancybox.min.css"><!--[if lt IE 9]><script>(function(a,b){a="abbr article aside audio bdi canvas data datalist details dialog figcaption figure footer header hgroup main mark meter nav output progress section summary template time video".split(" ");for(b=a.length-1;b>=0;b--)document.createElement(a[b])})()</script><![endif]--><script src="/js/jquery-3.1.1.min.js"></script><script src="/js/fancybox/jquery.fancybox.min.js"></script></head><body style="opacity:0"><header class="head"><h1 class="head-title u-fl"><a href="/">Get Busy Living</a></h1><nav class="head-nav u-fr"><ul class="head-nav__list"><li class="head-nav__item"><a class="head-nav__link" href="/archives">目录</a></li></ul></nav></header><main class="main"><article class="post"><header class="post__head"><time class="post__time" datetime="2020-01-05T06:10:36.000Z">2020 - 01 - 05 14:10:36</time><h1 class="post__title"><a href="/2020/01/05/MicroService-微服务简介/">MicroService 微服务简介</a></h1><div class="post__main echo"><h2 id="1-什么是微服务架构"><a href="#1-什么是微服务架构" class="headerlink" title="1. 什么是微服务架构"></a>1. 什么是微服务架构</h2><blockquote>
+<p>通常而言，微服务架构是一种架构模式或者说是一种架构风格。</p>
+</blockquote>
+<p>&ensp; 提倡将单一的应用程序划分成一组小的服务，每个服务运行独立的自己的进程中，服务之间互相协调、互相配合，为用户提供最终价值。服务之间采用轻量级的通信机制互相沟通（通常是基于 HTTP 的 RESTful API)。每个服务都围绕着具体业务进行构建，并且能够被独立地部署到生产环境、类生产环境等。</p>
+<h2 id="2-微服务和单体架构的区别"><a href="#2-微服务和单体架构的区别" class="headerlink" title="2. 微服务和单体架构的区别"></a>2. 微服务和单体架构的区别</h2><h3 id="1-单体架构"><a href="#1-单体架构" class="headerlink" title="1. 单体架构"></a>1. 单体架构</h3><blockquote>
+<p>通俗地讲，“单体应用（monolith application）”就是将应用程序的所有功能都打包成一个独立的单元，可以是JAR、EXE、BIN或其它归档格式。</p>
+</blockquote>
+<p><a href="https://imgchr.com/i/lBWY4I" target="_blank" rel="noopener"><img src="https://s2.ax1x.com/2020/01/05/lBWY4I.png" alt="lBWY4I.png"></a></p>
+<p><strong>单体应用的优点</strong></p>
+<ol>
+<li>开发简单直接,集中式管理,基本不会重复开发</li>
+<li>功能都在本地,没有分布式的管理开销和调用开销</li>
+</ol>
+<p><strong>缺点</strong></p>
+<ol>
+<li>开发效率低: 所有代码都在一个项目改代码,递交代码相互等待,代码冲突.</li>
+<li>代码维护难: 所有功能耦合在一起,新人上手困难</li>
+<li>部署不灵活: 构建时间长,任何修改必须重新构建整个项目,过程长</li>
+<li>稳定性不高: 一个微不足道的问题,可以导致应用挂掉</li>
+<li>扩展性不够: 无法满足高并发情况下的业务需求</li>
+</ol>
+<h3 id="2-微服务架构"><a href="#2-微服务架构" class="headerlink" title="2. 微服务架构"></a>2. 微服务架构</h3><blockquote>
+<p>随着业务需求的快速发展变化，敏捷性、灵活性和可扩展性需求不断增长，迫切需要一种更加快速高效的软件交付方式。微服务就是一种可以满足这种需求的软件架构风格。单体应用被分解成多个更小的服务，每个服务有自己的归档文件，单独部署，然后共同组成一个应用程序。这里的“微”不是针对代码行数而言，而是说服务的范围限定到单个功能。</p>
+</blockquote>
+<p>微服务简略图<br><a href="https://imgchr.com/i/lBWNCt" target="_blank" rel="noopener"><img src="https://s2.ax1x.com/2020/01/05/lBWNCt.md.png" alt="lBWNCt.md.png"></a></p>
+<p><strong>微服务优点</strong></p>
+<ol>
+<li>微服务是松藕合的，无论是在开发阶段或部署阶段都是独立的。</li>
+<li>能够快速响应,局部修改容易,一个服务出现问题不会影响整个应用。</li>
+<li>每个微服务都很小,足够内聚,代码容易理解.团队能够更关注自己的工作成果, 聚焦指定的业务功能或业务需求。</li>
+<li>易于和第三方应用系统集成, 支持使用不同的语言开发, 允许你利用融合最新技术。</li>
+<li>开发简单,开发效率高,一个服务可能只干一件事,能够被小团队单独开发，这个小团队可以是 2 到 5人的开发人员组成。</li>
+</ol>
+<p><strong>缺点</strong></p>
+<ol>
+<li>带来过多的运维操作,可能需要团队有一定的DevOps技巧</li>
+<li>复杂难以管理.分布部署跟踪问题难.当数量增加,管理复杂性增加.</li>
+</ol>
+<h2 id="3-微服务架构的主要特点"><a href="#3-微服务架构的主要特点" class="headerlink" title="3. 微服务架构的主要特点"></a>3. 微服务架构的主要特点</h2><blockquote>
+<p>微服务架构是一种松耦合的,有一定的有界上下文的面向服务架构。也就是说，如果遇到一个功能变更,但其要求每个服务都要同时修改，那么它们就不能称之为微服务，因为它们紧耦合在一起；如果你需要掌握一个服务的上下文场景使用条件，那么它就是一个有上下文边界的服务，这个定义一般来自DDD(领域驱动设计)。</p>
+</blockquote>
+<p><strong>主要特点是组件化,松耦合,自治,去中心化</strong></p>
+<ol>
+<li>细粒度的服务分解<ul>
+<li>服务粒度要小,每个服务针对一个单一职责的业务能力的封装,专注做好一件事情.</li>
+</ul>
+</li>
+<li>独立部署运行和扩展<ul>
+<li>每个服务能够独立的部署并运行在一个进程内.这种运行和部署方式能够赋予系统灵活的代码组织方式和发布节奏，使得快速交付和应对变化成为可能。</li>
+</ul>
+</li>
+<li>独立开发和演化<ul>
+<li>技术选型灵活,不受遗留系统技术约束.合适的业务问题选择合适的技术可以独立演化。服务与服务之间采取与语言无关的API进行集成。相对单体架构，微服务架构是更面向业务创新的一种架构模式。</li>
+</ul>
+</li>
+<li>独立团队和自治<ul>
+<li>团队对服务的整个生命周期负责,工作在独立的上下文中,自己决策自己治理,不需要统一的指挥中心.团队和团队之间通过松散的社区部落进行衔接</li>
+<li>分而治之减少不必要的损耗,使得整个系统和组织能快速的应对变化</li>
+</ul>
+</li>
+</ol>
+<h2 id="4-考虑的问题"><a href="#4-考虑的问题" class="headerlink" title="4. 考虑的问题"></a>4. 考虑的问题</h2><ol>
+<li>微服务代码量小,易于修改和维护.但系统复杂度的总量是不变的，每个服务代码少了，但服务的个数肯定就多了。就跟拼图游戏一样，切的越碎，越难拼出整幅图。一个系统被拆分成零碎的微服务，最后要集成为一个完整的系统，其复杂度肯定比大块的功能集成要高很多。</li>
+<li>单个微服务数据独立，可独立部署和运行。虽然微服务本身是可以独立部署和运行的，但仍然避免不了业务上的你来我往，这就涉及到要对外通信，当微服务的数量达到一定量级的时候，如何提供一个高效的集群通信机制成为一个问题。</li>
+<li>单个微服务拥有自己的进程，进程本身就可以动态的启停，为无缝升级打好了基础，但谁来启动和停止进程，什么时机，选择在哪台设备上做这件事情才是无缝升级的关键。这个能力并不是微服务本身提供的，而是需要背后强大的版本管理和部署能力。</li>
+<li>多个相同的微服务可以做负载均衡，提高性能和可靠性。正是因为相同微服务可以有多个不同实例，让服务按需动态伸缩成为可能，在高峰期可以启动更多的相同的微服务实例为更多用户服务，以此提高响应速度。同时这种机制也提供了高可靠性，在某个微服务故障后，其他相同的微服务可以接替其工作，对外表现为某个设备故障后业务不中断。同样的道理，微服务本身是不会去关心系统负载的，那么什么时候应该启动更多的微服务，多个微服务的流量应该如何调度和分发，这背后也有一套复杂的负载监控和均衡的系统在起作用。</li>
+<li>微服务可以独立部署和对外提供服务，微服务的业务上线和下线是动态的，当一个新的微服务上线时，用户是如何访问到这种新的服务？这就需要有一个统一的入口，新的服务可以动态的注册到这个入口上，用户每次访问时可以从这个入口拿到系统所有服务的访问地址。这个统一的系统入口并不是微服务本身的一部分，所以这种能力需要系统单独提供。</li>
+<li>还有一些企业级关注的系统问题，比如，安全策略如何集中管理？系统故障如何快速审计和跟踪到具体服务？整个系统状态如何监控？服务之间的依赖关系如何管理？等等这些问题都不是单个微服务考虑的范畴，而需要有一个系统性的考虑和设计，让每个微服务都能够按照系统性的要求和约束提供对应的安全性，可靠性，可维护性的能力。</li>
+</ol>
+<h2 id="5-需要关注的点"><a href="#5-需要关注的点" class="headerlink" title="5. 需要关注的点"></a>5. 需要关注的点</h2><ol>
+<li>服务注册、发现、负载均衡和健康检查，假定采用进程内LB方案，那么服务自注册一般统一做在服务器端框架中，健康检查逻辑由具体业务服务定制，框架层提供调用健康检查逻辑的机制，服务发现和负载均衡则集成在服务客户端框架中。</li>
+<li>监控日志，框架一方面要记录重要的框架层日志、metrics和调用链数据，还要将日志、metrics等接口暴露出来，让业务层能根据需要记录业务日志数据。在运行环境中，所有日志数据一般集中落地到企业后台日志系统，做进一步分析和处理。</li>
+<li>REST/RPC和序列化，框架层要支持将业务逻辑以HTTP/REST或者RPC方式暴露出来，HTTP/REST是当前主流API暴露方式，在性能要求高的场合则可采用Binary/RPC方式。针对当前多样化的设备类型(浏览器、普通PC、无线设备等)，框架层要支持可定制的序列化机制，例如，对浏览器，框架支持输出Ajax友好的JSON消息格式，而对内部服务及应用程序，框架支持输出性能高的Binary消息格式。</li>
+<li>配置，除了支持普通配置文件方式的配置，框架层还可集成动态运行时配置，能够在运行时针对不同环境动态调整服务的参数和配置。</li>
+<li>限流和容错，框架集成限流容错组件，能够在运行时自动限流和容错，保护服务，如果进一步和动态配置相结合，还可以实现动态限流和熔断。</li>
+<li>管理接口，框架集成管理接口，一方面可以在线查看框架和服务内部状态，同时还可以动态调整内部状态，对调试、监控和管理能提供快速反馈。Spring Boot微框架的Actuator模块就是一个强大的管理接口。</li>
+<li>统一错误处理，对于框架层和服务的内部异常，如果框架层能够统一处理并记录日志，对服务监控和快速问题定位有很大帮助。</li>
+<li>安全，安全和访问控制逻辑可以在框架层统一进行封装，可做成插件形式，具体业务服务根据需要加载相关安全插件。</li>
+<li>文档自动生成，文档的书写和同步一直是一个痛点，框架层如果能支持文档的自动生成和同步，会给使用API的开发和测试人员带来极大便利。Swagger是一种流行Restful API的文档方案。</li>
+</ol>
+<p><strong>一个完整的微服务系统,最少包含以下功能</strong></p>
+<ol>
+<li>日志和审计，主要是日志的汇总，分类和查询</li>
+<li>监控和告警，主要是监控每个服务的状态，必要时产生告警</li>
+<li>消息总线，轻量级的MQ或HTTP</li>
+<li>注册发现</li>
+<li>负载均衡</li>
+<li>部署和升级</li>
+<li>事件调度机制</li>
+</ol>
+<p><strong>考虑的部分</strong></p>
+<ol>
+<li>认证和鉴权</li>
+<li>多语言支持, 是否支持多种编程语言</li>
+<li>统一服务构建和打包</li>
+<li>统一服务测试</li>
+<li>统一配置文件管理</li>
+<li>服务依赖关系管理</li>
+<li>问题跟踪调试框架</li>
+<li>灰度发布</li>
+<li>蓝绿部署</li>
+<li>资源管理，如：底层的容器, 虚拟机,物理机和网络管理</li>
+</ol>
+</div></header><footer class="post__foot u-cf"><ul class="post__tag u-fl"><li class="post__tag__item"><a class="post__tag__link" href="/tags/Java/">Java</a></li><li class="post__tag__item"><a class="post__tag__link" href="/tags/SpringBoot/">SpringBoot</a></li><li class="post__tag__item"><a class="post__tag__link" href="/tags/框架/">框架</a></li></ul></footer></article><section class="reward"><a class="btn-reward" href="#">打赏</a><div class="reward-wrapper clearfix"><img src="/img/wechat.png" title="微信"></div></section></main><footer class="foot"><div class="foot-copy">&copy; 2019 - 2020 愿在衣而为领 承华首之余芳</div></footer><script src="/js/scroller.js"></script><script src="/js/main.js"></script></body></html>

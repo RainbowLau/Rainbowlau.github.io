@@ -1,0 +1,89 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta name="generator" content="Hexo 3.9.0"><meta charset="utf-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="author" content="愿在衣而为领 承华首之余芳"><link rel="alternative" href="/atom.xml" title="Get Busy Living" type="application/atom+xml"><link rel="icon" href="/favicon.png"><title>Redis 需要考虑的问题 - Get Busy Living</title><link rel="stylesheet" href="/css/main.css"><link rel="stylesheet" href="/js/fancybox/jquery.fancybox.min.css"><!--[if lt IE 9]><script>(function(a,b){a="abbr article aside audio bdi canvas data datalist details dialog figcaption figure footer header hgroup main mark meter nav output progress section summary template time video".split(" ");for(b=a.length-1;b>=0;b--)document.createElement(a[b])})()</script><![endif]--><script src="/js/jquery-3.1.1.min.js"></script><script src="/js/fancybox/jquery.fancybox.min.js"></script></head><body style="opacity:0"><header class="head"><h1 class="head-title u-fl"><a href="/">Get Busy Living</a></h1><nav class="head-nav u-fr"><ul class="head-nav__list"><li class="head-nav__item"><a class="head-nav__link" href="/archives">目录</a></li></ul></nav></header><main class="main"><article class="post"><header class="post__head"><time class="post__time" datetime="2020-01-05T06:13:34.000Z">2020 - 01 - 05 14:13:34</time><h1 class="post__title"><a href="/2020/01/05/Redis-需要考虑的问题/">Redis 需要考虑的问题</a></h1><div class="post__main echo"><h3 id="Redis需要考虑的问题"><a href="#Redis需要考虑的问题" class="headerlink" title="Redis需要考虑的问题"></a>Redis需要考虑的问题</h3><p>常见问题</p>
+<p><img src="https://s2.ax1x.com/2020/01/05/lBXQ7q.jpg" alt="lBXQ7q.jpg"></p>
+<p>三大类</p>
+<ol start="0">
+<li>缓存一致性</li>
+<li>缓存并发</li>
+<li>缓存雪崩</li>
+<li>缓存击穿</li>
+</ol>
+<ol>
+<li>缓存穿透<blockquote>
+<p>当根据Redis key在缓存中查询后，不存在对应Value，就应该会在后端系统如DB中去查找，该Key的并发请求量一旦变大，那么就会对DB造成很大的压力</p>
+</blockquote>
+</li>
+</ol>
+<ul>
+<li>解决方法<ol>
+<li>nginx,或者业务风险控制,把恶意穿透情况排除在外</li>
+<li>对查询结果为空的情况依然进行缓存，但缓存时间会设置得很短，一般是几分钟;</li>
+<li>设置过滤器布隆过滤器<br><img src="https://s2.ax1x.com/2020/01/05/lBjOzD.png" alt="lBjOzD.png"></li>
+</ol>
+</li>
+</ul>
+<ol start="2">
+<li>缓存击穿问题(单个key被高并发)<blockquote>
+<p>一个key非常的热点,不停的高并发;大并发集中对这个点进行访问,在这个key失效的瞬间,持续的大并发就穿破缓存,直接请求数据库,凿开一个孔.</p>
+</blockquote>
+</li>
+</ol>
+<ul>
+<li>解决方法: <ul>
+<li>也是像解决缓存穿透一样加锁排队，实现同上;</li>
+<li>建立备份缓存,缓存A,缓存B,A设置超时时间，B不设值超时时间，先从A读缓存，A没有读B，并且更新A缓存和B缓存;</li>
+<li>设置缓存超时时间的时候加上一个随机的时间长度，比如这个缓存key的超时时间是固定的5分钟加上随机的2分钟，可从一定程度上避免雪崩问题；</li>
+<li>流程图<br><img src="https://s2.ax1x.com/2020/01/05/lBj6I0.jpg" alt="lBj6I0.jpg"></li>
+</ul>
+</li>
+</ul>
+<ol start="3">
+<li><p>缓存雪崩问题(多个key被高并发)</p>
+<blockquote>
+<p>指一个时间段,缓存集中过期失效</p>
+</blockquote>
+</li>
+<li><p>某些原因（根本原因高并发），缓存更新或者过期等导致缓存命中失效。</p>
+</li>
+<li><p>大量请求直接落到DataBase上面，致其无法承受压力，进而崩溃。(可以理解是缓存并发的递进和升级版)</p>
+</li>
+</ol>
+<p>解决方案</p>
+<ol>
+<li>平时我们设定一个缓存的过期时间时，可能有一些会设置1分钟后或5分钟后。当并发很高时，会出在某一个时间同时生成了很多的缓存，并且过期时间都一样，这个时候就可能引发一当过期时间到后，这些缓存同时失效，请求全部转发到 DB ，DB 可能会压力过重，这样子，我们就可以将缓存过期时间均匀地分布在时间轴上，避免缓存同时失效、更新的情况发生。</li>
+<li>控制缓存并发、击穿现象的发生，查找大key，想解决方案。</li>
+</ol>
+<ol start="4">
+<li><p>二级缓存</p>
+<blockquote>
+<p>将ehcache与redis做二级缓存,更多的解决的是缓存穿透和程序的健壮性.</p>
+</blockquote>
+</li>
+<li><p>缓存并发</p>
+<blockquote>
+<p>缓存过期或存在更新,同时有大量的并发请求该key</p>
+</blockquote>
+</li>
+</ol>
+<p>前提</p>
+<ol>
+<li>缓存过期或者在更新</li>
+<li>同时有大量的并发请求该key</li>
+</ol>
+<p>问题: 比如<strong>缓存过期</strong>，此时大量请求落到DB上，可能导致“<strong>雪崩</strong>”发生；如果缓存更新，对某个key有大量的并发请求，此时请求获得的结果可能是<strong>更新之前或者更新之后</strong>，从而会导致“<strong>缓存一致性</strong>”的问题出现。</p>
+<p>解决:  由于“缓存并发”问题一般发生在查询期间，而且问题出在缓存更新时的高并发时刻，思路上，就可以在这个时候，对key加锁。（对缓存查询加锁，如果 KEY 不存在，就加锁，然后查 DB 后写入缓存，然后解锁；）</p>
+<p><img src="https://s2.ax1x.com/2020/01/05/lBvZLj.jpg" alt="lBvZLj.jpg"></p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>共同点</p>
+<ol>
+<li>高并发</li>
+<li>时机: 缓存更新,缓存失效居多</li>
+</ol>
+<p>比较</p>
+<ol>
+<li><p>并发和雪崩</p>
+<p>“并发”和“雪崩”都是高并发时候缓存不被命中直接访问DB的例子，但是为什么还会把他们定义为两个常见的问题？我的理解，前者是因，或者是果，“并发”造成的影响还不够恶劣，雪崩会导致数据库直接崩溃。</p>
+</li>
+<li><p>关联关系</p>
+<p>“并发”和“击穿”可能会导致“雪崩”发生，参考我的思维导图，避免发生“雪崩”，除了给出的解决方案，更要防止“并发”和“击穿”的发生</p>
+</li>
+</ol>
+</div></header><footer class="post__foot u-cf"><ul class="post__tag u-fl"><li class="post__tag__item"><a class="post__tag__link" href="/tags/Redis/">Redis</a></li><li class="post__tag__item"><a class="post__tag__link" href="/tags/DB/">DB</a></li><li class="post__tag__item"><a class="post__tag__link" href="/tags/缓存/">缓存</a></li></ul></footer></article><section class="reward"><a class="btn-reward" href="#">打赏</a><div class="reward-wrapper clearfix"><img src="/img/wechat.png" title="微信"></div></section></main><footer class="foot"><div class="foot-copy">&copy; 2019 - 2020 愿在衣而为领 承华首之余芳</div></footer><script src="/js/scroller.js"></script><script src="/js/main.js"></script></body></html>
