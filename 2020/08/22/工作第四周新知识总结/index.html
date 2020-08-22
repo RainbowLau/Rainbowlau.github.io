@@ -1,0 +1,118 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta name="generator" content="Hexo 3.9.0"><meta charset="utf-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="author" content="愿在衣而为领 承华首之余芳"><link rel="alternative" href="/atom.xml" title="Get Busy Living" type="application/atom+xml"><link rel="icon" href="/favicon.png"><title>工作第四周新知识总结 - Get Busy Living</title><link rel="stylesheet" href="/css/main.css"><link rel="stylesheet" href="/js/fancybox/jquery.fancybox.min.css"><!--[if lt IE 9]><script>(function(a,b){a="abbr article aside audio bdi canvas data datalist details dialog figcaption figure footer header hgroup main mark meter nav output progress section summary template time video".split(" ");for(b=a.length-1;b>=0;b--)document.createElement(a[b])})()</script><![endif]--><script src="/js/jquery-3.1.1.min.js"></script><script src="/js/fancybox/jquery.fancybox.min.js"></script></head><body style="opacity:0"><header class="head"><h1 class="head-title u-fl"><a href="/">Get Busy Living</a></h1><nav class="head-nav u-fr"><ul class="head-nav__list"><li class="head-nav__item"><a class="head-nav__link" href="/archives">目录</a></li></ul></nav></header><main class="main"><article class="post"><header class="post__head"><time class="post__time" datetime="2020-08-21T16:01:29.000Z">2020 - 08 - 22 00:01:29</time><h1 class="post__title"><a href="/2020/08/22/工作第四周新知识总结/">工作第四周新知识总结</a></h1><div class="post__main echo"><h2 id="17"><a href="#17" class="headerlink" title="17"></a>17</h2><h2 id="18"><a href="#18" class="headerlink" title="18"></a>18</h2><ol>
+<li>运行Jar包或者关闭<code>java -jar xx.jar</code>  或者 <a href="https://www.cnblogs.com/gejuncheng/p/9879165.html" target="_blank" rel="noopener">这里</a> </li>
+</ol>
+<p>2.<br> <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">java -Xmx1G -Xms1G -jar ocr-linux-1.0.jar --spring.config.location=conf.d/application.yml --server.port=4412 --server.tomcat.basedir=tmp</span><br></pre></td></tr></table></figure></p>
+<ol start="3">
+<li><a href="https://www.gathub.cn/article/shiro_redis.html" target="_blank" rel="noopener">登录</a></li>
+</ol>
+<h2 id="19"><a href="#19" class="headerlink" title="19"></a>19</h2><ol>
+<li><p>网关</p>
+<ol>
+<li><a href="https://www.jianshu.com/p/d063c40df8d6" target="_blank" rel="noopener">HTTP 默认请求优化-使用Apache HttpClient</a></li>
+<li><a href="https://blog.csdn.net/qq_33249725/article/details/88532160" target="_blank" rel="noopener">OKHTTP</a></li>
+<li>过滤器,核心是一系列的<strong>filters</strong>,</li>
+</ol>
+</li>
+<li><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">EnableAsync</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>Jedis 中的方法hget(key, field)：返回名称为key的hash中field对应的value</p>
+</li>
+<li><p>InputStream.available() 用法</p>
+</li>
+<li><p>Base64编码解码</p>
+<ul>
+<li>new BASE64Decoder().decodeBuffer(fileStream);解码</li>
+<li>encode  编码</li>
+</ul>
+</li>
+</ol>
+<h2 id="20"><a href="#20" class="headerlink" title="20"></a>20</h2><ol>
+<li><p>项目中图片上传的两种方式</p>
+<ol>
+<li>文件-字节流-base64-写到字段</li>
+<li>SFTP的形式-提前上传文件到SFTP上</li>
+</ol>
+</li>
+<li><p>SpringBoot 多模块打包时,依赖的公共模块问题</p>
+<ul>
+<li><a href="https://blog.csdn.net/weixin_42236404/article/details/100555953?utm_medium=distribute.pc_relevant_t0.none-task-blog-BlogCommendFromMachineLearnPai2-1.add_param_isCf&depth_1-utm_source=distribute.pc_relevant_t0.none-task-blog-BlogCommendFromMachineLearnPai2-1.add_param_isCf" target="_blank" rel="noopener">解决</a></li>
+<li><a href="https://blog.csdn.net/qq_42714869/article/details/83537794?utm_medium=distribute.pc_relevant_t0.none-task-blog-BlogCommendFromMachineLearnPai2-1.add_param_isCf&depth_1-utm_source=distribute.pc_relevant_t0.none-task-blog-BlogCommendFromMachineLearnPai2-1.add_param_isCf" target="_blank" rel="noopener">未尝试</a></li>
+</ul>
+</li>
+<li><p>Kill 运行中的jar包</p>
+<ul>
+<li><code>free -m</code>查看内存使用</li>
+<li>指定运行内存大小<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">#直接启动</span><br><span class="line">java -jar -Xms128M -Xmx256M -XX:PermSize=128M -XX:MaxPermSize=256M gmall-search-web-0.0.1-SNAPSHOT.jar </span><br><span class="line"></span><br><span class="line">#后台启动，日志输出到nohup.out中</span><br><span class="line">nohup java -jar -Xms128M -Xmx256M -XX:PermSize=128M -XX:MaxPermSize=256M gmall-search-web-0.0.1-SNAPSHOT.jar &amp;</span><br><span class="line"></span><br><span class="line">Xms : 堆内存初始大小</span><br><span class="line">Xmx : 堆内存最大值</span><br><span class="line">PermSize : 永久内存初始大小</span><br><span class="line">MaxPermSize ： 永久内存最大值</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li><p>linux 前台任务暂停</p>
+<ul>
+<li><code>CTRL+Z</code> 暂停到后台</li>
+<li><code>jobs</code>  显示当前暂停的进程</li>
+<li><code>bg %N</code> 使第N个任务在后台运行(%前有空格)</li>
+<li><code>fg %N</code>使第N个任务在前台运行</li>
+<li>默认<code>bg,fg</code>不带%N时表示对最后一个进程操作! </li>
+</ul>
+</li>
+<li><p><a href="https://blog.csdn.net/it_erge/article/details/90799556" target="_blank" rel="noopener">在服务器跑jar包</a></p>
+<ul>
+<li><code>nohup java -jar test.jar &amp;</code> 为了防止关闭终端窗口导致程序挂掉，采用nohup和&amp;组合命令来操作</li>
+<li><code>nohup java -jar yourProject.jar &gt;/dev/null 2&gt;log &amp;</code> 只输出错误信息到日志文件 </li>
+<li><code>nohup java -jar yourProject.jar &gt;/dev/null 2&gt;&amp;1 &amp;</code> 什么信息也不要</li>
+</ul>
+</li>
+</ol>
+<h2 id="21"><a href="#21" class="headerlink" title="21"></a>21</h2><ol>
+<li><p><code>logs/ocr-linux.log 2&gt;&amp;1 &amp;</code> 命令</p>
+<ul>
+<li>追加的形式,把正确和错误信息都输出到 <code>linux.log</code> 中</li>
+</ul>
+</li>
+<li><p><code>nohup java -jar /usr/sbin/lb-agent.jar &gt;&gt;/var/log/lb-agent.log 2&gt;&amp;1 &amp;</code> </p>
+<ul>
+<li>在命令最后加上&amp;符号，表示让这个进程到后台去执行</li>
+<li>关了shell窗口甚至退出ssh登录或vnc登录，那么进程自动就结束了</li>
+</ul>
+</li>
+<li><p><code>nohup command 1&gt;output 2&gt;&amp;1 &amp;</code> 2 错误,1 正确,0 输入 最后的&amp; 后台</p>
+<ul>
+<li>退出窗口乃至退出登录仍然保持程序运行</li>
+<li><a href="https://blog.csdn.net/liucy007/article/details/90207830" target="_blank" rel="noopener">链接1</a></li>
+<li><a href="https://blog.csdn.net/zhaominpro/article/details/82630528" target="_blank" rel="noopener">链接2</a></li>
+</ul>
+</li>
+<li><p><code>tail -f</code> 实时的得到新追加到文件中的信息，常用来跟踪日志文件<code>tail -f RunLog</code></p>
+</li>
+<li><p><a href="https://www.cnblogs.com/jackzz/p/9358213.html" target="_blank" rel="noopener">tailf、tail -f、tail -F三者区别</a></p>
+</li>
+<li><p>springboot 中tomcat的配置,在服务器中</p>
+<ul>
+<li><code>server.tomcat.basedir=tmp</code>存放Tomcat的日志、Dump等文件的临时文件夹，默认为系统的tmp文件夹</li>
+<li><a href="https://blog.csdn.net/qq_39313596/article/details/82148209" target="_blank" rel="noopener">相关配置</a></li>
+</ul>
+</li>
+<li><p>vue 打包到服务器运行</p>
+<ul>
+<li>build</li>
+<li>打包到服务器</li>
+<li><strong>nginx配置代理</strong></li>
+</ul>
+</li>
+</ol>
+<ol start="8">
+<li>websocket 放到服务器,修改?</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">nginx配置 location /</span><br><span class="line"> location ^~/websocket/&#123;</span><br><span class="line">      proxy_pass http://127.0.0.1:8080;</span><br><span class="line">      proxy_set_header Host $host:80;</span><br><span class="line">      proxy_set_header X-Real-IP $remote_addr;</span><br><span class="line">      proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;</span><br><span class="line">      proxy_set_header Upgrade $http_upgrade;</span><br><span class="line">      proxy_set_header Connection &quot;upgrade&quot;;</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
+
+<ol start="9">
+<li>docker 装redis<a href="https://www.cnblogs.com/provence666/p/10961590.html" target="_blank" rel="noopener">redis</a></li>
+<li><a href="https://blog.csdn.net/xu12387/article/details/87910867" target="_blank" rel="noopener">docker安装activemq</a></li>
+<li><a href="https://www.cnblogs.com/zhoujun007/p/13273311.html" target="_blank" rel="noopener">docker装nginx</a></li>
+<li><a href="https://www.cnblogs.com/lauhp/p/8487029.html" target="_blank" rel="noopener">redis</a></li>
+<li>OpenJDK</li>
+</ol>
+<h2 id="22"><a href="#22" class="headerlink" title="22"></a>22</h2><ol>
+<li>编写sh脚本，</li>
+</ol>
+</div></header></article><section class="reward"><a class="btn-reward" href="#">打赏</a><div class="reward-wrapper clearfix"><img src="/img/wechat.png" title="微信"></div></section></main><footer class="foot"><div class="foot-copy">&copy; 2019 - 2020 愿在衣而为领 承华首之余芳</div></footer><script src="/js/scroller.js"></script><script src="/js/main.js"></script></body></html>

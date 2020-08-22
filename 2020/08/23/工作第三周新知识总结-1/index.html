@@ -1,0 +1,117 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta name="generator" content="Hexo 3.9.0"><meta charset="utf-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="author" content="愿在衣而为领 承华首之余芳"><link rel="alternative" href="/atom.xml" title="Get Busy Living" type="application/atom+xml"><link rel="icon" href="/favicon.png"><title>工作第三周新知识总结 - Get Busy Living</title><link rel="stylesheet" href="/css/main.css"><link rel="stylesheet" href="/js/fancybox/jquery.fancybox.min.css"><!--[if lt IE 9]><script>(function(a,b){a="abbr article aside audio bdi canvas data datalist details dialog figcaption figure footer header hgroup main mark meter nav output progress section summary template time video".split(" ");for(b=a.length-1;b>=0;b--)document.createElement(a[b])})()</script><![endif]--><script src="/js/jquery-3.1.1.min.js"></script><script src="/js/fancybox/jquery.fancybox.min.js"></script></head><body style="opacity:0"><header class="head"><h1 class="head-title u-fl"><a href="/">Get Busy Living</a></h1><nav class="head-nav u-fr"><ul class="head-nav__list"><li class="head-nav__item"><a class="head-nav__link" href="/archives">目录</a></li></ul></nav></header><main class="main"><article class="post"><header class="post__head"><time class="post__time" datetime="2020-08-22T17:40:37.000Z">2020 - 08 - 23 01:40:37</time><h1 class="post__title"><a href="/2020/08/23/工作第三周新知识总结-1/">工作第三周新知识总结</a></h1><div class="post__main echo"><h2 id="10"><a href="#10" class="headerlink" title="10"></a>10</h2><ol>
+<li>websocket 具体的使用</li>
+<li><strong>VUE ajax 传参bug修改</strong></li>
+<li><a href="https://www.runoob.com/vue2/vuejs-ajax-axios.html" target="_blank" rel="noopener">vue 传参的各种方式</a></li>
+</ol>
+<h2 id="11"><a href="#11" class="headerlink" title="11"></a>11</h2><ol>
+<li><p>websocket 的具体使用</p>
+</li>
+<li><p>前端接收到消息方法的调用</p>
+</li>
+<li><p>切面监听方法调用的使用</p>
+</li>
+<li><p><a href="https://blog.csdn.net/qq_34146694/article/details/81234401?utm_medium=distribute.pc_relevant.none-task-blog-BlogCommendFromMachineLearnPai2-2.channel_param" target="_blank" rel="noopener">切点监听方法的使用</a></p>
+</li>
+<li><p>data中return 写和不写的区别</p>
+<ul>
+<li>不使用return包裹的数据会在项目的全局可见，会造成变量污染 </li>
+<li>return包裹后数据中变量只在当前组件中生效，不会影响其他组件</li>
+</ul>
+</li>
+<li><p>let that=this 的原因</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">$(<span class="string">"#btn"</span>).click(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="keyword">var</span> _this = <span class="keyword">this</span>;<span class="comment">//这里this和_this都代表了"#btn"这个对象</span></span><br><span class="line">    $(<span class="string">".tr"</span>).each(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">          <span class="keyword">this</span>;<span class="comment">//在这里this代表的是每个遍历到的".tr"对象</span></span><br><span class="line">          _this;<span class="comment">//仍代表"#btn"对象</span></span><br><span class="line">    &#125;)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>单页面应用,一个html,所有的vue文件都会被注入</p>
+</li>
+</ol>
+<h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.app.config;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> com.alibaba.fastjson.JSONObject;</span><br><span class="line"><span class="keyword">import</span> org.aspectj.lang.annotation.After;</span><br><span class="line"><span class="keyword">import</span> org.aspectj.lang.annotation.Aspect;</span><br><span class="line"><span class="keyword">import</span> org.springframework.stereotype.Component;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> javax.annotation.Resource;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span> liuyuzhe@sinosoft.com.cn</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@date</span> 2020-8-11</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">@Aspect</span></span><br><span class="line"><span class="meta">@Component</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">StatusAop</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Resource</span></span><br><span class="line">    <span class="keyword">private</span> WebSocketServer webSocketServer;</span><br><span class="line"></span><br><span class="line">	<span class="comment">// 当监听到指定的方法运行时,执行该方法</span></span><br><span class="line">    <span class="meta">@After</span>(value = <span class="string">"execution(* com.app.mapper.FolderMapper.updateStatus(..))"</span>)</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">after</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        webSocketServer.sendAllMessage(JSONObject.toJSONString(<span class="string">"转换成功"</span>));</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="12"><a href="#12" class="headerlink" title="12"></a>12</h2><ol>
+<li>防止XSS攻击 在Controller层转义</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> Result <span class="title">login</span><span class="params">(@RequestBody User requestUser)</span> </span>&#123;</span><br><span class="line">       <span class="comment">// 对 html 标签进行转义，防止 XSS 攻击</span></span><br><span class="line">       String username = requestUser.getUsername();</span><br><span class="line">       username = HtmlUtils.htmlEscape(username);</span><br><span class="line">       &#125;</span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li><p>vue 中 <code>#</code></p>
+<ol>
+<li>Hash模式<code>hashChange</code></li>
+<li><code>History</code>模式</li>
+</ol>
+</li>
+<li><p>vuex</p>
+</li>
+<li><p>前端拦截,钩子方法</p>
+</li>
+<li><p><code>var _this=this</code></p>
+<ol>
+<li>一个变量名,this代表父函数,如果在子函数还是用this,this就变成了子函数</li>
+<li><a href="https://blog.csdn.net/weixin_42545184/article/details/90746635" target="_blank" rel="noopener">链接</a></li>
+</ol>
+</li>
+<li><p><code>mode:&#39;history&#39;</code>vue界面变成空白</p>
+<ol>
+<li>语法错误    </li>
+<li>路由</li>
+<li>本地存储 删掉</li>
+</ol>
+</li>
+<li><p>lambda表达式常用语法</p>
+</li>
+<li><p>Stream流去重</p>
+<ol>
+<li><p>对象去重,实例需要重写<code>hashCode（）和equals（）</code></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">list.stream().distinct().forEach(b -&gt; System.out.println(b.getName()+ <span class="string">","</span> + b.getPrice()));</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>如果按照对象的属性进行去重  </p>
+</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.concretepage;</span><br><span class="line"><span class="keyword">import</span> java.util.ArrayList;</span><br><span class="line"><span class="keyword">import</span> java.util.List;</span><br><span class="line"><span class="keyword">import</span> java.util.Map;</span><br><span class="line"><span class="keyword">import</span> java.util.concurrent.ConcurrentHashMap;</span><br><span class="line"><span class="keyword">import</span> java.util.function.Function;</span><br><span class="line"><span class="keyword">import</span> java.util.function.Predicate;</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">DistinctByProperty</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        List&lt;Book&gt; list = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line">        &#123;</span><br><span class="line">        	list.add(<span class="keyword">new</span> Book(<span class="string">"Core Java"</span>, <span class="number">200</span>));</span><br><span class="line">        	list.add(<span class="keyword">new</span> Book(<span class="string">"Core Java"</span>, <span class="number">300</span>));</span><br><span class="line">        	list.add(<span class="keyword">new</span> Book(<span class="string">"Learning Freemarker"</span>, <span class="number">150</span>));</span><br><span class="line">        	list.add(<span class="keyword">new</span> Book(<span class="string">"Spring MVC"</span>, <span class="number">200</span>));</span><br><span class="line">        	list.add(<span class="keyword">new</span> Book(<span class="string">"Hibernate"</span>, <span class="number">300</span>));</span><br><span class="line">        &#125;</span><br><span class="line">        list.stream().filter(distinctByKey(b -&gt; b.getName()))</span><br><span class="line">              .forEach(b -&gt; System.out.println(b.getName()+ <span class="string">","</span> + b.getPrice()));   </span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> &lt;T&gt; <span class="function">Predicate&lt;T&gt; <span class="title">distinctByKey</span><span class="params">(Function&lt;? <span class="keyword">super</span> T, ?&gt; keyExtractor)</span> </span>&#123;</span><br><span class="line">        Map&lt;Object,Boolean&gt; seen = <span class="keyword">new</span> ConcurrentHashMap&lt;&gt;();</span><br><span class="line">        <span class="keyword">return</span> t -&gt; seen.putIfAbsent(keyExtractor.apply(t), Boolean.TRUE) == <span class="keyword">null</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ol start="3">
+<li><a href="https://juejin.im/post/6844903842132262926" target="_blank" rel="noopener">去重的另一种 方式</a></li>
+</ol>
+</li>
+<li><p>线程的区别</p>
+<ol>
+<li>start和run<ol>
+<li>使用start()方法具有异步执行的效果，而使用run()方法是同步执行的效果，运行结果中规中矩。</li>
+<li>使用start()方法，是真的启动了相应的线程0-9，而使用run()方法并没有真的启动线程，而是由一个叫main的主线程去</li>
+<li>调用的run()方法。</li>
+<li>正确启动是start方法</li>
+</ol>
+</li>
+<li>Thread 类和Runnable接口<ol>
+<li>Thread类中的run调用的是 Runnable 接口中的 run() 方法，也就是说此方法是由 Runnable 子类完成的，所以如果要通过继承 Thread 类实现多线程，则必须覆写 run()。</li>
+<li>实际上 Thread 类和 Runnable 接口之间在使用上也是有区别的,如果一个类继承 Thread类，则不适合于多个线程共享资源，而实现了 Runnable 接口，就可以方便的实现资源的共享。</li>
+</ol>
+</li>
+<li><a href="https://www.cnblogs.com/wxd0108/p/5479442.html" target="_blank" rel="noopener">线程</a></li>
+<li><a href="https://www.jianshu.com/p/28200121a33d" target="_blank" rel="noopener">UML图</a></li>
+</ol>
+</li>
+<li><p>路由地址中的子父节点</p>
+</li>
+</ol>
+<h2 id="13"><a href="#13" class="headerlink" title="13"></a>13</h2><ol>
+<li><code>@Scope(&quot;prototype&quot;)</code> 在controller中,声明多实例bean,每次请求都会创建一个<ol>
+<li>多实例下,普通属性时不会共用的,对于静态属性会去共用这个属性</li>
+<li>单例情况普通属性和静态属性都会被共用。</li>
+<li>尽量不要再controller</li>
+<li>中定义属性(成员变量),非要定义使用<code>@Scope(&quot;prototype&quot;</code></li>
+</ol>
+</li>
+<li><code>predicate</code> 函数</li>
+<li><a href="https://www.cnblogs.com/lori/p/8927155.html" target="_blank" rel="noopener">lambda查询</a></li>
+<li><code>@JsonInclude(JsonInclude.Include.NON_NULL)</code>的作用<ul>
+<li>在实体类上使用,返回前端的时候,忽略null字段不返回,使其不显示</li>
+</ul>
+</li>
+<li><a href="https://www.cnblogs.com/lsgspace/p/10508180.html" target="_blank" rel="noopener">SprinBoot 启动时,让方法自动执行的几种方式</a></li>
+<li><a href="https://www.cnblogs.com/qdhxhz/p/11323595.html" target="_blank" rel="noopener">Predicat用法</a></li>
+</ol>
+<h2 id="14"><a href="#14" class="headerlink" title="14"></a>14</h2><ol>
+<li>瀑布模型</li>
+<li><a href="https://www.cnblogs.com/myseries/p/11239662.html" target="_blank" rel="noopener">报文</a></li>
+<li><code>@RequestHeader</code> 的作用</li>
+</ol>
+</div></header><footer class="post__foot u-cf"><ul class="post__tag u-fl"><li class="post__tag__item"><a class="post__tag__link" href="/tags/工作/">工作</a></li></ul></footer></article><section class="reward"><a class="btn-reward" href="#">打赏</a><div class="reward-wrapper clearfix"><img src="/img/wechat.png" title="微信"></div></section></main><footer class="foot"><div class="foot-copy">&copy; 2019 - 2020 愿在衣而为领 承华首之余芳</div></footer><script src="/js/scroller.js"></script><script src="/js/main.js"></script></body></html>

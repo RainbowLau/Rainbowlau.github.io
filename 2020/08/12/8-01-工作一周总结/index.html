@@ -1,0 +1,56 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta name="generator" content="Hexo 3.9.0"><meta charset="utf-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="author" content="愿在衣而为领 承华首之余芳"><link rel="alternative" href="/atom.xml" title="Get Busy Living" type="application/atom+xml"><link rel="icon" href="/favicon.png"><title>8-01 工作一周总结 - Get Busy Living</title><link rel="stylesheet" href="/css/main.css"><link rel="stylesheet" href="/js/fancybox/jquery.fancybox.min.css"><!--[if lt IE 9]><script>(function(a,b){a="abbr article aside audio bdi canvas data datalist details dialog figcaption figure footer header hgroup main mark meter nav output progress section summary template time video".split(" ");for(b=a.length-1;b>=0;b--)document.createElement(a[b])})()</script><![endif]--><script src="/js/jquery-3.1.1.min.js"></script><script src="/js/fancybox/jquery.fancybox.min.js"></script></head><body style="opacity:0"><header class="head"><h1 class="head-title u-fl"><a href="/">Get Busy Living</a></h1><nav class="head-nav u-fr"><ul class="head-nav__list"><li class="head-nav__item"><a class="head-nav__link" href="/archives">目录</a></li></ul></nav></header><main class="main"><article class="post"><header class="post__head"><time class="post__time" datetime="2020-08-12T14:08:27.000Z">2020 - 08 - 12 22:08:27</time><h1 class="post__title"><a href="/2020/08/12/8-01-工作一周总结/">8-01 工作一周总结</a></h1><div class="post__main echo"><h2 id="前提"><a href="#前提" class="headerlink" title="前提"></a>前提</h2><blockquote>
+<p>六月份毕业答辩后来到北京找工作，北京疫情却又开始，无奈在北京闭关学习两周左右。这两周让我的Java理论知识突飞猛进，对一些底层原理理解更加深入。功夫不负有心人，疫情结束后，两周的面试，让我收获到5个公司发来的offer。</p>
+</blockquote>
+<h2 id="入职"><a href="#入职" class="headerlink" title="入职"></a>入职</h2><blockquote>
+<p>虽然有五个公司的offer，一半都是小公司，工资给的也凑合。因为我是一个有梦想的人，所以我就选择了一个工资最高的公司入职了。因为学历等原因吧，无缘大厂，但以后要去一家大厂。</p>
+</blockquote>
+<h2 id="公司项目"><a href="#公司项目" class="headerlink" title="公司项目"></a>公司项目</h2><blockquote>
+<p>给了两个后端服务，一个前端VUE。其中后端一个linux的作为CPU，Windows版本的作为GPU，两个使用RestTemplate远程调用。</p>
+</blockquote>
+<h3 id="linux"><a href="#linux" class="headerlink" title="linux"></a>linux</h3><h3 id="windows"><a href="#windows" class="headerlink" title="windows"></a>windows</h3><ul>
+<li>方法前面加<code>synchronized</code></li>
+<li>Controller 中的<code>MultipartFile</code>参数 </li>
+<li>CollectionUtils.isEmpty(infos) 判断集合是否为空</li>
+<li>ObjectUtils.isEmpty(filePdf)判断对象是否为空</li>
+</ul>
+<h3 id="vue"><a href="#vue" class="headerlink" title="vue"></a>vue</h3><h2 id="新知识点（细节方面）"><a href="#新知识点（细节方面）" class="headerlink" title="新知识点（细节方面）"></a>新知识点（细节方面）</h2><ul>
+<li>RestTemplate远程调用另一个服务，返回数据（因为之前都是使用的springcloud中的feign，对RestTemplate比较陌生</li>
+<li>枚举类enum的values()方法，把枚举类专程数组</li>
+<li>前端vue，从url传参改为json传参</li>
+<li>后端接收到json数据，进行解析和判断，使用fastJson进行判断</li>
+<li>VUE路由中懒加载 <code>component: resolve=&gt;(require([&quot;@/components/extract/extract&quot;],resolve)),</code><ul>
+<li>正常加载<code>component: index</code> 正常加载</li>
+</ul>
+</li>
+<li>VUE路由中<code>@/</code>和<code>./</code>的区别<ul>
+<li><code>@/</code> 根目录的绝对路径</li>
+<li><code>./</code> 上级路径</li>
+</ul>
+</li>
+<li>VUE中路由中meta字段（元数据） 路由<ul>
+<li>一些参数，比如 <code>meta: {login_require: true},</code> 登录校验</li>
+<li><a href="https://www.cnblogs.com/sgs123/p/10442687.html" target="_blank" rel="noopener">用法</a></li>
+</ul>
+</li>
+<li>VUE中 export default{} 的作用<ul>
+<li>相当于需要暴露的导出的模块，vue的实例对象，在其他地方可以使用import引入</li>
+</ul>
+</li>
+<li>VUE中 script 中包含的属性<ul>
+<li>导入 其他组件<code>import UploadeFolder from &#39;../common/uploadFolder/uploadFolder.vue&#39;;</code></li>
+<li>需要暴露的模块export default {}<ul>
+<li>name</li>
+<li>components</li>
+<li>data 必须要有返回值</li>
+<li>create html加载之前，执行顺序：父组件-子组件</li>
+<li>mounted html加载完成之后，执行顺序 子组件-父组件</li>
+<li>computed  computed是计算属性，也就是依赖其它的属性计算所得出最后的值</li>
+<li>methods 事件方法执行</li>
+<li>watch watch是去监听一个值的变化，然后执行相对应的函数。</li>
+<li>activated：在vue对象存活的情况下，进入当前存在activated()函数的页面时，一进入页面就触发；可用于初始化页面数据等</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div></header><footer class="post__foot u-cf"><ul class="post__tag u-fl"><li class="post__tag__item"><a class="post__tag__link" href="/tags/工作/">工作</a></li></ul></footer></article><section class="reward"><a class="btn-reward" href="#">打赏</a><div class="reward-wrapper clearfix"><img src="/img/wechat.png" title="微信"></div></section></main><footer class="foot"><div class="foot-copy">&copy; 2019 - 2020 愿在衣而为领 承华首之余芳</div></footer><script src="/js/scroller.js"></script><script src="/js/main.js"></script></body></html>
